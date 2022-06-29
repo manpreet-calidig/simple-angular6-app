@@ -1,0 +1,98 @@
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <ul class="breadcrumb breadcrumb-style ">
+                        <li class="breadcrumb-item">
+                            <h4 class="page-title">All Overviews</h4>
+                        </li>
+                        <li class="breadcrumb-item bcrumb-1">
+                            <a href="../../index.html">
+                                <i class="fas fa-home"></i> Home</a>
+                        </li>
+                        <li class="breadcrumb-item bcrumb-2">
+                            <a href="#" onClick="return false;">Overview</a>
+                        </li>
+                        <li class="breadcrumb-item active">All Overview</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-bottom: 15px !important;">
+            <button class="btn btn-warning btn-border-radius waves-effect float-left" routerLink="/project"> &#8592; Back </button>
+            <!-- <button class="btn btn-warning btn-border-radius waves-effect float-left" routerLink="add"> Add Defect Task </button> -->
+        </div>
+
+        <div class="custom-row" *ngIf="type != 'client'">
+
+            <div class="custom-list-tab" *ngFor="let week of dataSource">
+            <div class="drag-container">
+              <div class="section-heading">{{week.id}}</div>
+
+              <div cdkDropList id="{{week.id}}" [cdkDropListData]="week.weeklist"
+                [cdkDropListConnectedTo]="connectedTo" class="item-list" (cdkDropListDropped)="drop($event)">
+                <div class="" *ngFor="let weekItem of week.weeklist| keyvalue" cdkDrag>
+                    <div class="list-content-option item-box hide" *ngIf="weekItem.key == 0"  [innerHTML]="weekItem.value"  ></div>
+                    <div class="list-content-option item-box" (click)="view(weekItem.value)" *ngIf="weekItem.key != 0"  [innerHTML]="weekItem.value"  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="custom-row" *ngIf="type == 'client'">
+
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="card">
+                    <div class="body">
+                        <div class="table-responsive">
+                            <table class="table table-hover js-basic-example contact_list" *ngIf="length > 0">
+                                <thead>
+                                    <tr>
+                                        <th class="center"> Issue </th>
+                                        <th class="center"> Status </th>
+                                        <th>Action </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="odd gradeX" *ngFor="let datainfo of dataSource | paginate : {
+                                        itemsPerPage: tableSize,
+                                        currentPage: page,
+                                        totalItems: count
+                                      };">
+                                        <td class="center">{{datainfo.title}}</td>
+                                        <td class="center"><span class="task_status">{{datainfo.task_status}}</span></td>
+                                        <td>
+                                         <a routerLink="/project/overview/{{id}}/edit/{{datainfo.encryptid}}" class="btn btn-tbl-edit" >
+                                            <i class="material-icons">create</i>
+                                        </a>
+
+                                        <a routerLink="/project/overview/{{id}}/view/{{datainfo.encryptid}}" class="btn bg-blue btn-circle waves-effect waves-circle waves-float">
+                                            <i class="material-icons">list</i>
+                                        </a>
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div *ngIf="length === 0">
+                                No Records Found!
+                            </div>
+                            <div  *ngIf="total_count > 20"  class="dataTables_paginate paging_simple_numbers" id="chieldRow_paginate">
+                                <pagination-controls
+
+                                  previousLabel="Prev"
+                                  nextLabel="Next"
+                                  (pageChange)="onTableDataChange($event)">
+                                </pagination-controls>
+                              </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

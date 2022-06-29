@@ -1,0 +1,187 @@
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <ul class="breadcrumb breadcrumb-style ">
+                        <li class="breadcrumb-item">
+                            <h4 class="page-title">All Employees</h4>
+                        </li>
+                        <li class="breadcrumb-item bcrumb-1">
+                            <a routerLink="/dashboard">
+                                <i class="fas fa-home"></i> Home</a>
+                        </li>
+                        <li class="breadcrumb-item bcrumb-2">
+                            <a href="#" onClick="return false;">Calidig Team</a>
+                        </li>
+                        <li class="breadcrumb-item active"> Calidig Team</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="modal c" id="exampleModalCenter" [style.display]="showModal ? 'block' : 'none'">
+            <div class="modal-dialog">
+              <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title" *ngIf="content != ''">Employee Info</h4>
+                  <button type="button" class="close" style="color:#fff" data-dismiss="modal" (click) = "hide()">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                  <table *ngIf="content != ''" class="table">
+                      <tr>
+                          <td>Name</td>
+                          <td> {{content.first_name}}  {{content.last_name}}</td>
+                      </tr>
+
+                    <tr>
+                        <td> Email</td>
+                        <td> {{content.email}}</td>
+                    </tr>
+                    <tr>
+                        <td>Skills</td>
+                        <td>{{removeComma(content.skills)}}</td>
+                    </tr>
+                    <tr>
+                        <td> Date of Birth </td>
+                        <td>  {{testfunction(content.dob)}} </td>
+                    </tr>
+                    <tr>
+                        <td>Gender</td>
+                        <td> <span *ngIf="content.gender == 'M'"> Male </span> <span *ngIf="content.gender == 'F'"> Female </span></td>
+                    </tr>
+                    <!--<tr>
+                        <td>Phone No</td>
+                        <td>{{content.telephone}}</td>
+                    </tr>
+                    <tr>
+                        <td> Alt Phone No</td>
+                        <td>{{content.alt_telephone}}</td>
+                    </tr>
+                    <tr>
+                        <td> Address</td>
+                        <td>{{content.address}}</td>
+                    </tr>-->
+                    <tr>
+                        <td>Image </td>
+                        <td>
+                            <img src="../../assets/images/user/user6.jpg" alt=""  *ngIf="content.image ==''  || content.image == null">
+                            <img src="{{url}}{{content.image}}" alt=""  *ngIf="content.image !='' && content.image != null" style="height: 35px;">
+                        </td>
+
+                    </tr>
+                  </table>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-danger" data-dismiss="modal" (click) = "hide()">Close</button>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            <strong>Calidig</strong> Team
+                        </h2>
+                    </div>
+                    <form [formGroup]="calidigForm" (ngSubmit)="onSubmit()">
+                        <div class="row pl-4">
+                          <div class="col-sm-4 relative-21">
+                            <div class="dataTables_length datatable_allleaves" id="DataTables_Table_0_length">
+                              <label class="d-flex page-neighbours">
+                                <span class="m-r-7">Show</span>
+                                <select name="DataTables_Table_0_length" id="page_length" aria-controls="DataTables_Table_0"
+                                  class="custom-select-sm form-control form-control-sm p-left-number" (change)="pageValue($event)">
+                                  <option value="10">10</option>
+                                  <option value="15">15</option>
+                                  <option value="20">20</option>
+                                </select>
+                                <span class="ml-2">entries</span>
+                              </label>
+                            </div>
+                          </div>
+                        <div class="col-sm-4 ">
+                        </div>
+                        <div class="col-sm-3 ">
+                          <div class="form-group">
+                            <div class="form-line">
+                              <input
+                              type="text"
+                              class="form-control"
+                              placeholder="Search"
+                              formControlName="search"
+                              />
+                            </div>
+                            <div *ngIf="isSubmitted && errorControl.search.errors?.required" class="error-msg">
+                              <label class="error"></label>
+                            </div>
+                          </div>
+                        </div>
+                          <div class="col-sm-1">
+                            <div class="form-group">
+                              <div class="form-line">
+                                <div class="d-flex justify-content-start">
+                                  <div><button title="Search" type="submit" class="btn btn-success waves-effect"><i class="fas fa-search"></i></button></div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          </div>
+                      </form>
+                    <div class="body">
+                        <div class="table-responsive">
+                            <table class="table table-hover js-basic-example contact_list" *ngIf="length > 0">
+                                <thead>
+                                    <tr>
+                                        <th class="center">#</th>
+                                        <th class="center"> Name </th>
+                                        <th class="center"> Email </th>
+                                        <th class="center"> Skills </th>
+                                        <th class="center"> Action  </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="odd gradeX" *ngFor="let data of dataSource | paginate : {
+                                        itemsPerPage: tableSize,
+                                        currentPage: page,
+                                        totalItems: count
+                                      };let i = index">
+                                        <td class="center">{{i+1}}</td>
+                                        <td class="center">{{data.first_name}} {{data.last_name}}</td>
+                                        <td class="center">{{data.email}}</td>
+                                        <td class="center">{{removeComma(data.skills)}}</td>
+                                        <td><button class="btn bg-blue btn-tbl-edit" (click) = "show(data)">
+                                            <i class="material-icons">account_circle</i>
+                                        </button></td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div *ngIf="length == 0">
+                                No Records Found!
+                            </div>
+                            <div class="d-flex justify-content-right pagintion-right" *ngIf="count > 20">
+                                <pagination-controls
+                                  previousLabel="Prev"
+                                  nextLabel="Next"
+                                  (pageChange)="onTableDataChange($event)">
+                                </pagination-controls>
+                              </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

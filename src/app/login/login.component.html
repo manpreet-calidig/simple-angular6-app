@@ -1,0 +1,68 @@
+<ngx-spinner></ngx-spinner>
+<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<form class="login100-form validate-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()" method="post" autocomplete="off">
+					<span class="login100-form-title p-b-45">
+						Login
+					</span>
+					<div role="alert" class="alert alert-warning alert-dismissible" [hidden]="message == null">{{ message }}</div>
+					<div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+						<input class="input100" type="text" name="email" formControlName="email">
+						<span class="focus-input100"></span>
+						<span class="label-input100">Email</span>
+
+					</div>
+					<div *ngIf="isSubmitted && errorControl.email.errors?.required" class="error-msg">
+						<label class="error">Email is required</label>
+					  </div>
+					  <div *ngIf="isSubmitted && errorControl.email.errors?.pattern" class="error-msg">
+						<label class="error">Please provide valid email id</label>
+					  </div>
+					<div class="wrap-input100 validate-input" data-validate="Password is required">
+						<input class="input100" type="password" name="pass" formControlName="password">
+						<span class="focus-input100"></span>
+						<span class="label-input100">Password</span>
+
+					</div>
+					<div *ngIf="isSubmitted && errorControl.password.errors?.required" class="error-msg">
+						<label class="error">Password is required</label>
+					  </div>
+					<div class="custom-select" >
+						<select class="select-option" name="type" formControlName="type">
+							<option value="">Select Option</option>
+							<option value="client">Client</option>
+							<option value="user">Super Admin</option>
+							<option value="employee">Employee</option>
+						</select>
+					</div>
+					<div *ngIf="isSubmitted && errorControl.type.errors?.required" class="error-msg">
+						<label class="error">Type is required</label>
+					  </div>
+					<div class="flex-sb-m w-full p-t-15 p-b-20">
+						<div class="form-check">
+							<label class="form-check-label">
+								<input class="form-check-input" type="checkbox" value=""> Remember me
+								<span class="form-check-sign">
+									<span class="check"></span>
+								</span>
+							</label>
+						</div>
+						<div>
+							<a href="#" class="txt1">
+								Forgot Password?
+							</a>
+						</div>
+					</div>
+					<div class="container-login100-form-btn">
+
+						<button class="login100-form-btn" type="submit">
+							Login
+						</button>
+					</div>
+				</form>
+				<div class="login100-more" style="background-image: url('assets/images/pages/bg-01.png');">
+				</div>
+			</div>
+		</div>
+	</div>

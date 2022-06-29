@@ -1,0 +1,59 @@
+.row.clearfix {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: right;
+}
+
+select.form-control.ng-untouched.ng-pristine.ng-valid {
+  margin-top: 8.46px !important;
+  border-color: white !important;
+  padding-bottom: 6px !important;
+}
+
+select.form-control.ng-valid.ng-dirty.ng-touched {
+  margin-top: 8.46px !important;
+  border-color: white !important;
+  padding-bottom: 6px !important;
+}
+
+select.form-control {
+  margin-top: 8.46px !important;
+  border-color: white !important;
+  padding-bottom: 6px !important;
+}
+
+button.btn.btn-success.waves-effect {
+  width: 40px;
+}
+
+select.form-control.ng-pristine.ng-valid {
+  margin-top: 8.46px !important;
+  border-color: white !important;
+  padding-bottom: 6px !important;
+}
+
+select.form-control {
+  margin-top: 8.46px !important;
+  border-color: white !important;
+  padding-bottom: 6px !important;
+}
+svg.caret {
+  display: none;
+}
+th{
+  color: #f1d065!important;
+}
+.hour{
+  padding-left: 40px;
+}
+.wrapp {
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tr {
+  border-bottom: 1px solid transparent;
+}

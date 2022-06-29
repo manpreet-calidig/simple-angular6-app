@@ -1,0 +1,214 @@
+<ngx-spinner></ngx-spinner>
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <ul class="breadcrumb breadcrumb-style ">
+                        <li class="breadcrumb-item">
+                            <h4 class="page-title">Client</h4>
+                        </li>
+                        <li class="breadcrumb-item bcrumb-1">
+                            <a href="../../index.html">
+                                <i class="fas fa-home"></i> Home</a>
+                        </li>
+                        <li class="breadcrumb-item bcrumb-2">
+                            <a href="#" onClick="return false;">Client</a>
+                        </li>
+                        <li class="breadcrumb-item active">Edit client</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom: 15px !important;">
+            <button class="btn btn-warning btn-border-radius waves-effect float-left ml-4" routerLink="/client/listclient"> &#8592; Back </button>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            <strong>Edit</strong> Client
+                        </h2>
+                    </div>
+                    <div class="body">
+                        <form [formGroup]="clientForm" (ngSubmit)="onUpdate()">
+                        <div class="row clearfix">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="text" formControlName="first_name" class="form-control" placeholder="First Name" autocomplete="off" />
+                                        
+                                    </div>
+                                    <div *ngIf="isSubmitted && errorControl.first_name.errors?.required" class="error-msg">
+                                        <label class="error">First name is required</label>
+                                      </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="text" formControlName="last_name" class="form-control" placeholder="Last Name" autocomplete="off" />
+                                       
+                                    </div>
+                                    <div *ngIf="isSubmitted && errorControl.last_name.errors?.required" class="error-msg">
+                                        <label class="error">Last name is required</label>
+                                      </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row clearfix">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input id="email" formControlName="email" type="email" class="validate form-control"
+                                            placeholder="Email" autocomplete="off">
+                                        
+                                    </div>
+                                    <div *ngIf="isSubmitted && errorControl.email.errors?.required" class="error-msg">
+                                        <label class="error">Email is required</label>
+                                      </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="form-line">              
+                                        <ng-select [items]="companies"
+                                                [addTag]="addTagFn"
+                                                [hideSelected]="true"
+                                                [multiple]="true"
+                                                bindLabel="name"
+
+                                                appendTo="body"
+                                                [closeOnSelect]="false"
+                                                [searchable]="false"
+                                                [clearable]="true"
+                                                placeholder="Select technologies"
+                                                formControlName="project_type"
+                                                [(ngModel)]="selected"
+                                                >
+                                            </ng-select>
+                                    </div>
+                                    <div *ngIf="isSubmitted && errorControl.project_type.errors?.required" class="error-msg">
+                                        <label class="error">Project type is required</label>
+                                      </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row clearfix">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="text" formControlName="designation" class="form-control" placeholder="Designation" autocomplete="off" />
+                                       
+                                    </div>
+                                    <div *ngIf="isSubmitted && errorControl.designation.errors?.required" class="error-msg">
+                                        <label class="error">Designation is required</label>
+                                      </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <select class="form-control col-12 m-t-10 p-l-0" formControlName="gender" placeholder="gender" >
+                                            <option value="">Gender</option>
+                                            <option value="M">Male</option>
+                                            <option value="F">Female</option>
+                                        </select>
+                                       
+                                    </div>
+                                    <div *ngIf="isSubmitted && errorControl.gender.errors?.required" class="error-msg">
+                                        <label class="error">Gender is required</label>
+                                      </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row clearfix">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="number" formControlName="telephone" class="form-control" placeholder="Telephone" autocomplete="off"/>
+                                        
+                                    </div>
+                                    <div *ngIf="isSubmitted && errorControl.telephone.errors?.required" class="error-msg">
+                                        <label class="error">Telephone is required</label>
+                                      </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <select class="form-control col-12 m-t-10 p-l-0" formControlName="country" placeholder="gender" >
+                                            <option value="">Country</option>
+                                            <option value="india">India</option>
+                                            <option value="australia">Australia</option>
+                                        </select>
+                                    </div>
+                                    <div *ngIf="isSubmitted && errorControl.country.errors?.required" class="error-msg">
+                                        <label class="error">Country is required</label>
+                                      </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row clearfix">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input id="website" formControlName="website" type="text" class="validate form-control"
+                                            placeholder="Website" autocomplete="off">
+                                        
+                                    </div>
+                                    <div *ngIf="isSubmitted && errorControl.website.errors?.required" class="error-msg">
+                                        <label class="error">Website is required</label>
+                                      </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input id="app_name" formControlName="app_name" type="text" class="validate form-control"
+                                            placeholder="App name" autocomplete="off">
+                                       
+                                    </div>
+                                    <div *ngIf="isSubmitted && errorControl.app_name.errors?.required" class="error-msg">
+                                        <label class="error">App name is required</label>
+                                      </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row clearfix">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <textarea rows="4" formControlName="address" class="form-control no-resize"
+                                            placeholder="Address"></textarea>
+                                        
+                                    </div>
+                                    <div *ngIf="isSubmitted && errorControl.address.errors?.required" class="error-msg">
+                                        <label class="error">Address is required</label>
+                                      </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="fallback">
+                                    <input name="file" type="file"    (change)="imageUpload($event)"  />
+                                </div>
+                                <div class="" *ngIf="profileimage !=''" style="margin: 20px 0px;">
+                                    <img src="{{url}}{{profileimage}}" alt=""   style="height: 150px;">
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="col-lg-12 p-t-20 text-center">
+                            <button type="submit" class="btn btn-primary waves-effect m-r-15">Submit</button>
+                            <button type="button" class="btn btn-danger waves-effect" routerLink="/client/listclient">Cancel</button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

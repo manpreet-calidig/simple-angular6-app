@@ -1,0 +1,115 @@
+<ngx-spinner></ngx-spinner>
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <ul class="breadcrumb breadcrumb-style ">
+                        <li class="breadcrumb-item">
+                            <h4 class="page-title">Reports</h4>
+                        </li>
+                        <li class="breadcrumb-item bcrumb-1">
+                            <a href="../../index.html">
+                                <i class="fas fa-home"></i> Home</a>
+                        </li>
+                        <li class="breadcrumb-item bcrumb-2">
+                            <a href="#" onClick="return false;">Reports</a>
+                        </li>
+                        <li class="breadcrumb-item active">Add Report</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            <strong>Add</strong> Report
+                        </h2>
+                    </div>
+                    <div class="body">
+                        <form [formGroup]="reportForm" (ngSubmit)="onSubmit()">
+                        <div class="row clearfix">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="form-line">                            
+                                        <select class="form-control col-12 m-t-10 p-l-0" formControlName="employee_id" placeholder="manager_id" >
+                                            <option value="">Select Employee</option>
+                                            <option *ngFor="let data of dataSource" value="{{data.id}}">{{data.first_name}}</option>
+                                        </select>
+                                    </div>
+                                    <div *ngIf="isSubmitted && errorControl.employee_id.errors?.required" class="error-msg">
+                                        <label class="error">Please select employee</label>
+                                      </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="text" formControlName="description" name="description" class="form-control" placeholder="description" autocomplete="off"/>
+                                        
+                                    </div>
+                                    <div *ngIf="isSubmitted && errorControl.description.errors?.required" class="error-msg">
+                                        <label class="error">Description is required</label>
+                                      </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row clearfix">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Start Date"
+                                        bsDatepicker
+                                        formControlName="start"
+                                        autocomplete="off" />
+                                    </div>
+                                    <div *ngIf="isSubmitted && errorControl.start.errors?.required" class="error-msg">
+                                        <label class="error">Start date is required</label>
+                                      </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="End Date"
+                                        bsDatepicker
+                                        formControlName="end"
+                                        autocomplete="off" />
+                                    </div>
+                                    <div *ngIf="isSubmitted && errorControl.end.errors?.required" class="error-msg">
+                                        <label class="error">End date is required</label>
+                                      </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row clearfix" *ngIf="getPermission(9,5)">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="form-line">                            
+                                        <select class="form-control col-12 m-t-10 p-l-0" formControlName="manager_id"  required>
+                                            <option value="">Select Manager</option>
+                                            <option *ngFor="let data of dataSource" value="{{data.id}}">{{data.first_name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>    
+                        <div class="col-lg-12 p-t-20 text-center">
+                            <button type="submit" class="btn btn-primary waves-effect m-r-15">Submit</button>
+                            <button type="button" class="btn btn-danger waves-effect" (click)="reset()">Cancel</button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

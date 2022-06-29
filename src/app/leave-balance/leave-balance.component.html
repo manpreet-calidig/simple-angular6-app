@@ -1,0 +1,87 @@
+<ngx-spinner></ngx-spinner>
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <ul class="breadcrumb breadcrumb-style ">
+                        <li class="breadcrumb-item">
+                            <h4 class="page-title">Projects</h4>
+                        </li>
+                        <li class="breadcrumb-item bcrumb-1">
+                            <a href="../../index.html">
+                                <i class="fas fa-home"></i> Home</a>
+                        </li>
+                        <li class="breadcrumb-item bcrumb-2">
+                            <a href="#" onClick="return false;">Projects</a>
+                        </li>
+                        <li class="breadcrumb-item active">Add Project</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="card">
+                    <div class="body">
+                        <form [formGroup]="leaveForm" (ngSubmit)="onSubmit()">
+                        <div class="row clearfix">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <select class="form-control col-12 m-t-10 p-l-0" formControlName="user_id" placeholder="user_id" (change)="onChange($event)" >
+                                            <option value="">Select Employee</option>
+                                            <option *ngFor="let data of dataSource" value="{{data.id}}">{{data.name}}</option>
+                                        </select>
+                                    </div>
+                                    <div *ngIf="isSubmitted && errorControl.user_id.errors?.required" class="error-msg">
+                                        <label class="error">Please select employee</label>
+                                      </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6" style="display:none;">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="text" formControlName="id" class="form-control" placeholder="id" autocomplete="off" readonly/>
+                                    </div>
+                                    <div *ngIf="isSubmitted && errorControl.id.errors?.required" class="error-msg">
+                                        <label class="error">Id</label>
+                                      </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input formControlName="entitled" type="number" class="validate form-control"
+                                            placeholder="Entitled" autocomplete="off">
+                                    </div>
+                                    <div *ngIf="isSubmitted && errorControl.entitled.errors?.required" class="error-msg">
+                                        <label class="error">This field is mandatory</label>
+                                      </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row clearfix">
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="number" formControlName="carrired_forward" class="form-control" placeholder="Carrired Forward" autocomplete="off" />
+                                    </div>
+                                    <div *ngIf="isSubmitted && errorControl.carrired_forward.errors?.required" class="error-msg">
+                                        <label class="error">Carrired forward is required</label>
+                                      </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 p-t-20 text-center">
+                            <button type="submit" class="btn btn-primary waves-effect m-r-15">Submit</button>
+                            <button type="button" class="btn btn-danger waves-effect" (click)="reset()">Cancel</button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

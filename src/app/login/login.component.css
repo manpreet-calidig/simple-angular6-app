@@ -1,0 +1,10 @@
+.error-msg label.error {
+    color: #f44336;
+    padding: 2px 6px;
+}
+.label-input100 {
+    top:5px
+}
+input.select-dropdown.dropdown-trigger {
+    display: block !IMPORTANT;
+}

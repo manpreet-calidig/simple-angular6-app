@@ -1,0 +1,27 @@
+.btn-sm {
+    padding: 0 10px !important;
+    line-height: 1px !important;
+    height: 22px !important;
+    font-size: 11px !important;
+    font-weight: 600;
+}
+
+button.btn.btn-outline-success.btn-sm.disabled {
+    background-color: #434f5a!important;
+    color: #28a745 !important;
+}
+
+button.btn.btn-outline-danger.btn-sm.disabled {
+    background-color: #434f5a!important;
+    color: #fb483a !important;
+}
+button.btn.btn-outline-warning.btn-sm i.material-icons {
+    font-size: 10px;
+    padding: 4px 0;
+}
+th{
+    color: #f1d065!important;
+}
+small {
+    color: #fff;
+}

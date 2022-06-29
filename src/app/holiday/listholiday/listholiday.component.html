@@ -1,0 +1,123 @@
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <ul class="breadcrumb breadcrumb-style ">
+                        <li class="breadcrumb-item">
+                            <h4 class="page-title">All Clients</h4>
+                        </li>
+                        <li class="breadcrumb-item bcrumb-1">
+                            <a href="../../index.html">
+                                <i class="fas fa-home"></i> Home</a>
+                        </li>
+                        <li class="breadcrumb-item bcrumb-2">
+                            <a href="#" onClick="return false;">Holiday</a>
+                        </li>
+                        <li class="breadcrumb-item active">All Holiday</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            <strong>All</strong> Holidays
+                        </h2>
+                    </div>
+                    <form [formGroup]="holidayForm" (ngSubmit)="onSubmit()">
+                      <div class="row pl-4 page-number-custom">
+                        <div class="col-sm-3 relative-21">
+                          <div class="dataTables_length datatable_allleaves" id="DataTables_Table_0_length">
+                            <label class="d-flex page-neighbours">
+                              <span class="m-r-7">Show</span>
+                              <select name="DataTables_Table_0_length" id="page_length" aria-controls="DataTables_Table_0"
+                                class="custom-select-sm form-control form-control-sm p-left-number" (change)="pageValue($event)">
+                                <option value="10">10</option>
+                                <option value="15">15</option>
+                                <option value="20">20</option>
+                              </select>
+                              <span class="ml-2">entries</span>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-sm-5 ">
+                        </div>
+                        <div class="col-sm-3 ">
+                          <div class="form-group">
+                            <div class="form-line">
+                              <input
+                              type="text"
+                              class="form-control"
+                              placeholder="Search"
+                              formControlName="search"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                          <div class="col-sm-1">
+                            <div class="form-group">
+                              <div class="form-line">
+                                <div class="d-flex justify-content-start">
+                                  <div><button title="Search" type="submit" class="btn btn-success waves-effect"><i class="fas fa-search"></i></button></div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          </div>
+                      </form>
+                    <div class="body">
+                        <div class="table-responsive">
+                            <table class="table table-hover js-basic-example contact_list" *ngIf="length > 0">
+                                <thead>
+                                    <tr>
+                                        <th class="center"> Title </th>
+                                        <th class="center">Holiday Type</th>
+                                        <th class="center"> Description </th>
+                                        <th class="center"> Start Date </th>
+                                        <th class="center"> End Date </th>
+                                        <th class="center" *ngIf="getPermission(6,2)"> Action </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="odd gradeX" *ngFor="let data of dataSource | paginate : {
+                                        itemsPerPage: tableSize,
+                                        currentPage: page,
+                                        totalItems: count
+                                      };">
+                                        <td class="center">{{data.title}}</td>
+                                        <td class="center">{{data.holiday_type}}</td>
+                                        <td class="center">{{data.description}}</td>
+                                        <td class="center">{{data.start_date | date: 'dd-MMM-yyyy'}}</td>
+                                        <td class="center">{{data.end_date | date: 'dd-MMM-yyyy'}}</td>
+                                        <td class="center">
+                                            <a routerLink="edit/{{data.id}}" class="btn btn-tbl-edit" *ngIf="getPermission(6,2)">
+                                                <i class="material-icons">create</i>
+                                            </a>
+                                            <button class="btn btn-tbl-delete" (click)="deleteData(data.id)" *ngIf="getPermission(6,3)">
+                                            <i class="material-icons">delete_forever</i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div *ngIf="length === 0">
+                                No Records Found!
+                            </div>
+                            <div class="d-flex justify-content-right pagintion-right" *ngIf="count > 20">
+                                <pagination-controls
+
+                                  previousLabel="Prev"
+                                  nextLabel="Next"
+                                  (pageChange)="onTableDataChange($event)">
+                                </pagination-controls>
+                              </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

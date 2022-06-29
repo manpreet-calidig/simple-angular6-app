@@ -1,0 +1,304 @@
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <ul class="breadcrumb breadcrumb-style ">
+                        <li class="breadcrumb-item">
+                            <h4 class="page-title">Dashbaord</h4>
+                        </li>
+                        <li class="breadcrumb-item bcrumb-1">
+                            <a routerLink="/dashboard">
+                                <i class="fas fa-home"></i> Dashbaord</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row"  *ngIf="type == 'employee'">
+            <!-- <div class="col-xl-3 col-sm-6" (click)="nextPage('/project')" style="cursor: pointer;">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-5 col-5">
+                                <span class="info-box-icon"><i class="material-icons">work</i></span>
+                            </div>
+                            <div class="col-lg-7 col-7">
+                                <div>
+                                    <h2 class="col-green">
+                                        <span>{{project}}</span>
+                                    </h2>
+                                    <p>Projects</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <div class="col-xl-3 col-sm-6" (click)="nextPage('/applyleave')" style="cursor: pointer;">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-5 col-5">
+                                <span class="info-box-icon"><i class="menu-icon ti-id-badge"></i></span>
+                            </div>
+                            <div class="col-lg-7 col-7">
+                                <div>
+                                    <h2 class="col-green">
+                                        <span>{{total}}</span>
+                                    </h2>
+                                    <p>Total Leaves  </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-6" (click)="nextPage('/applyleave')" style="cursor: pointer;">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-5 col-5">
+                                <span class="info-box-icon"><i class="material-icons">account_balance_wallet</i></span>
+                            </div>
+                            <div class="col-lg-7 col-7">
+                                <div>
+                                    <h2 class="col-green">
+                                        <span>{{remaining}}</span>
+                                    </h2>
+                                    <p>Balance Leaves </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-6" routerLink="/calidigteam" style="cursor: pointer;">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-5 col-5">
+                                <span class="info-box-icon"><i class="material-icons">apps</i></span>
+                            </div>
+                            <div class="col-lg-7 col-7">
+                                <div>
+                                    <h2 class="col-green">
+                                        <span>{{count}}</span>
+                                    </h2>
+                                    <p>Calidig Team</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row"  *ngIf="type == 'user'">
+            <!-- <div class="col-xl-3 col-sm-6" (click)="nextPage('/project')" style="cursor: pointer;">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-5 col-5">
+                                <span class="info-box-icon"><i class="material-icons">work</i></span>
+                            </div>
+                            <div class="col-lg-7 col-7">
+                                <div>
+                                    <h2 class="col-green">
+                                        <span>{{project}}</span>
+                                    </h2>
+                                    <p>Projects</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <div class="col-xl-3 col-sm-6" (click)="nextPage('/employee/listemployee')" style="cursor: pointer;">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-5 col-5">
+                                <span class="info-box-icon"><i class="material-icons">group</i></span>
+                            </div>
+                            <div class="col-lg-7 col-7">
+                                <div>
+                                    <h2 class="col-green">
+                                        <span>{{employee}}</span>
+                                    </h2>
+                                    <p>Employees</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-6" (click)="nextPage('/client/listclient')" style="cursor: pointer;">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-5 col-5">
+                                <span class="info-box-icon"><i class="material-icons">person</i></span>
+                            </div>
+                            <div class="col-lg-7 col-7">
+                                <div>
+                                    <h2 class="col-green">
+                                        <span>{{client}}</span>
+                                    </h2>
+                                    <p>Clients</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-6"  (click)="nextPage('/role')" style="cursor: pointer;">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-5 col-5">
+                                <span class="info-box-icon"><i class="material-icons">description</i></span>
+                            </div>
+                            <div class="col-lg-7 col-7">
+                                <div>
+                                    <h2 class="col-green">
+                                        <span>{{employeerole}}</span>
+                                    </h2>
+                                    <p>Roles</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-sm-6"  (click)="nextPage('/leave')" style="cursor: pointer;">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-5 col-5">
+                                <span class="info-box-icon"><i class="material-icons">time_to_leave</i></span>
+                            </div>
+                            <div class="col-lg-7 col-7">
+                                <div>
+                                    <h2 class="col-green">
+                                        <span>{{todayleavecount}}</span>
+                                    </h2>
+                                    <p>Today's Leaves</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Task Info -->
+            <!-- <div class="col-md-6" [ngClass]="{ 'd-none' : projectlist.length == 0 }">
+                <div class="card" >
+                    <div class="header">
+                        <h2>
+                            <strong>Project</strong> Details</h2>
+                    </div>
+                    <div class="body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Project</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let list of projectlist">
+                                        <td> {{list.project_name}}</td>
+                                        <td><a routerLink="/project" class="btn bg-blue btn-circle waves-effect waves-circle waves-float">
+                                            <i class="material-icons">list</i>
+                                        </a></td>
+                                    </tr>
+
+                                </tbody>-->
+                                <!-- <tbody *ngIf="projectlist == '' || projectlist == null || projectlist.length == 0"> -->
+                                    <!-- <tr>
+                                        <td colspan="2"> No record found</td>
+                                    </tr>
+                                </tbody> -->
+                             <!--</table>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <div class="col-md-6">
+                <div class="card" style="padding: 15px 20px;">
+                    <full-calendar [options]="calendarOptions" #calendar (click)="getNextMonth()" ></full-calendar>
+                </div>
+
+            </div>
+            <div class="col-md-6" *ngIf="type!=client">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>
+                                <strong>Calidig</strong> Team
+                                <!-- <a style="float: right;" routerLink="/calidigteam">View all</a> -->
+                                <button type="button" style="float: right;" routerLink="/calidigteam" class="btn btn-outline-info btn-border-radius">View all</button>
+                            </h2>
+                        </div>
+                        <div class="body">
+                            <div class="table-responsive">
+                                <table class="table table-hover js-basic-example contact_list" *ngIf="length > 0">
+                                    <thead>
+                                        <tr>
+                                            <th class="center"> Name </th>
+                                            <th class="center"> Email </th>
+                                            <th class="center"> Skills </th>
+                                            <!-- <th class="center"> Action  </th> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="odd gradeX" *ngFor="let data of dataSource | paginate : {
+                                            itemsPerPage: tableSize,
+                                            currentPage: page,
+                                            totalItems: count
+                                          };">
+                                            <td class="center">{{data.first_name}} {{data.last_name}}</td>
+                                            <td class="center">{{data.email}}</td>
+                                            <td class="center">{{removeComma(data.skills)}}</td>
+                                            <!-- <td><button class="btn bg-blue btn-tbl-edit" (click) = "show(data)">
+                                                <i class="material-icons">account_circle</i>
+                                            </button></td> -->
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div *ngIf="length === 0">
+                                    No Records Found!
+                                </div>
+                                <div class="d-flex justify-content-right pagintion-right" *ngIf="count > 20">
+                                    <pagination-controls
+
+                                      previousLabel="Prev"
+                                      nextLabel="Next"
+                                      (pageChange)="onTableDataChange($event)">
+                                    </pagination-controls>
+                                  </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div class="col-md-6">
+                <div style="display: block; background-color: #fff;" >
+                    <canvas baseChart
+                      [datasets]="barChartData"
+                      [labels]="barChartLabels"
+                      [options]="barChartOptions"
+                      [plugins]="barChartPlugins"
+                      [legend]="barChartLegend"
+                      [chartType]="barChartType">
+                    </canvas>
+                  </div>
+            </div> -->
+        </div>
+    </div>
+</section>

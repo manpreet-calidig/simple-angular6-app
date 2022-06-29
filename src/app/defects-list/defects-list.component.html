@@ -1,0 +1,345 @@
+<section class="content">
+  <div class="container-fluid">
+      <div class="block-header">
+          <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                  <ul class="breadcrumb breadcrumb-style ">
+                      <li class="breadcrumb-item">
+                          <h4 class="page-title">Defects</h4>
+                      </li>
+                      <li class="breadcrumb-item bcrumb-1">
+                          <a href="../../index.html">
+                              <i class="fas fa-home"></i> Home</a>
+                      </li>
+                      <li class="breadcrumb-item bcrumb-2">
+                          <a routerLink="/project/defects_list">Defects</a>
+                      </li>
+                      <li class="breadcrumb-item active">View Defects</li>
+                  </ul>
+              </div>
+          </div>
+      </div>
+      <div class="row" style="margin-bottom: 15px !important;">
+        <!-- <button class="btn btn-warning btn-border-radius waves-effect float-left" routerLink="/project"> &#8592; Back </button> -->
+        <button class="btn btn-warning btn-border-radius waves-effect float-left ml-4" routerLink="add"> Add Defect </button>
+    </div>
+      <div class="row" >
+          <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="card">
+                <div class="header">
+                  <h2>
+                      <strong>All</strong> Defects
+                  </h2>
+              </div>
+              <form [formGroup]="defectForm" (ngSubmit)="onSubmit()">
+                  <div class="row pl-4">
+                  <div class="col-sm-4 ">
+                      <div class="dataTables_length" id="DataTables_Table_0_length">
+                          <label>
+                             Show
+                             <select name="DataTables_Table_0_length" id="page_length" aria-controls="DataTables_Table_0" class="custom-select-sm form-control form-control-sm" (change)="pageValue($event)">
+                                  <option value="20">20</option>
+                                  <option value="50">50</option>
+                                  <option value="100">100</option>
+                             </select>
+                             entries
+                          </label>
+                       </div>
+                  </div>
+                  <div class="col-sm-4 ">
+                  </div>
+                  <div class="col-sm-3 ">
+                    <div class="form-group">
+                      <div class="form-line">
+                        <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Search"
+                        formControlName="search"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                    <div class="col-sm-1">
+                      <div class="form-group">
+                        <div class="form-line">
+                          <div class="d-flex justify-content-start">
+                            <div><button title="Search" type="submit" class="btn btn-success waves-effect"><i class="fas fa-search"></i></button></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+                </form>
+                  <div class="body">
+                      <div class="table-responsive" *ngIf="type=='employee'">
+                          <!-- <button class="btn btn-primary" routerLink="overview"> Task List </button> -->
+                          <table class="table table-hover js-basic-example contact_list" *ngIf="length > 0">
+                              <thead>
+                                  <tr>
+                                    <th class="center"> Project Name </th>
+                                    <th class="center"> Defect </th>
+                                    <th class="center"> Status </th>
+                                    <th class="center"> Date </th>
+                                    <th> Action </th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr class="odd gradeX" *ngFor="let data of dataSource | paginate : {
+                                      itemsPerPage: tableSize,
+                                      currentPage: page,
+                                      totalItems: count
+                                    };">
+                                    <td class="center">{{data.project_name}}</td>
+                                    <td class="center">{{data.title}}</td>
+                                    <td class="center">
+                                      <p *ngIf="data.defect_status == 'Open'">
+                                        <span class="border border-light text-light text-uppercase span-custom extra-custom-padding">
+                                          Open
+                                        </span>
+                                      </p>
+                                      <p *ngIf="data.defect_status == 'Ready'">
+                                        <span class="border border-success text-success text-uppercase span-custom extra-custom-padding-2">
+                                          Ready
+                                        </span>
+                                      </p>
+                                      <p *ngIf="data.defect_status == 'In Process'">
+                                        <span class="border border-info text-info text-uppercase span-custom">
+                                          In Process
+                                        </span>
+                                      </p>
+                                      <p *ngIf="data.defect_status == 'Testing'">
+                                        <span class="border border-warning text-warning text-uppercase span-custom extra-custom-padding-3">
+                                          Testing
+                                        </span>
+                                      </p>
+                                      <p *ngIf="data.defect_status == 'Re-Open'">
+                                        <span class="border border-warning text-warning text-uppercase span-custom extra-custom-padding-3">
+                                          Re-Open
+                                        </span>
+                                      </p>
+                                      <p *ngIf="data.defect_status == 'Done'">
+                                        <span class="border border-primary text-primary text-uppercase span-custom extra-custom-padding">
+                                          Done
+                                        </span>
+                                      </p>
+                                      <p *ngIf="data.defect_status == 'Completed'">
+                                        <span class="border border-danger text-danger text-uppercase span-custom">
+                                          Completed
+                                        </span>
+                                      </p>
+                                      <p *ngIf="data.defect_status == 'Closed'">
+                                        <span class="border border-danger text-danger text-uppercase span-custom extra-custom-padding-3">
+                                          Closed
+                                        </span>
+                                      </p>
+                                    </td>
+                                    <td class="center">{{data.created_at | date: 'dd-MMM-yyyy'}}</td>
+                                    <td>
+                                        <a routerLink="/project/defects_list/{{id}}/edit/{{data.en_id}}" class="btn btn-tbl-edit" >
+                                          <i class="material-icons">edit</i>
+                                        </a>
+                                        <!-- <a (click)="overview(data.en_id)" class="btn bg-blue btn-circle waves-effect waves-circle waves-float">
+                                            <i class="material-icons">list</i>
+                                        </a> -->
+                                    </td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                          <div *ngIf="length === 0">
+                            No Records Found!
+                        </div>
+                          <div class="dataTables_paginate paging_simple_numbers" *ngIf="count > 20" id="chieldRow_paginate">
+                              <pagination-controls
+
+                                previousLabel="Prev"
+                                nextLabel="Next"
+                                (pageChange)="onTableDataChange($event)">
+                              </pagination-controls>
+                            </div>
+                      </div>
+                  </div>
+                  <div class="body" *ngIf="type=='client'">
+                    <div class="table-responsive">
+                        <table class="table table-hover js-basic-example contact_list">
+                            <thead>
+                                <tr>
+                                    <th class="center"> Project Name </th>
+                                    <th class="center"> Defect </th>
+                                    <th class="center"> Status </th>
+                                    <th class="center"> Date Time </th>
+                                    <th> Action </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="odd gradeX" *ngFor="let data of dataSource | paginate : {
+                                    itemsPerPage: tableSize,
+                                    currentPage: page,
+                                    totalItems: count
+                                  };">
+                                    <td class="center">{{data.project_name}}</td>
+                                    <td class="center">{{data.title}}</td>
+                                    <!-- <td class="center"><span class="task_status">{{data.defect_status}}</span></td> -->
+                                    <td class="center">
+                                      <p *ngIf="data.defect_status == 'Open'">
+                                        <span class="border border-light text-light text-uppercase span-custom extra-custom-padding">
+                                          Open
+                                        </span>
+                                      </p>
+                                      <p *ngIf="data.defect_status == 'Ready'">
+                                        <span class="border border-success text-success text-uppercase span-custom extra-custom-padding-2">
+                                          Ready
+                                        </span>
+                                      </p>
+                                      <p *ngIf="data.defect_status == 'In Process'">
+                                        <span class="border border-info text-info text-uppercase span-custom">
+                                          In Process
+                                        </span>
+                                      </p>
+                                      <p *ngIf="data.defect_status == 'Testing'">
+                                        <span class="border border-warning text-warning text-uppercase span-custom extra-custom-padding-3">
+                                          Testing
+                                        </span>
+                                      </p>
+                                      <p *ngIf="data.defect_status == 'Re-Open'">
+                                        <span class="border border-warning text-warning text-uppercase span-custom extra-custom-padding-3">
+                                          Re-Open
+                                        </span>
+                                      </p>
+                                      <p *ngIf="data.defect_status == 'Done'">
+                                        <span class="border border-primary text-primary text-uppercase span-custom extra-custom-padding">
+                                          Done
+                                        </span>
+                                      </p>
+                                      <p *ngIf="data.defect_status == 'Completed'">
+                                        <span class="border border-danger text-danger text-uppercase span-custom">
+                                          Completed
+                                        </span>
+                                      </p>
+                                      <p *ngIf="data.defect_status == 'Closed'">
+                                        <span class="border border-danger text-danger text-uppercase span-custom extra-custom-padding-3">
+                                          Closed
+                                        </span>
+                                      </p>
+                                    </td>
+                                    <td class="center">{{data.created_at | date: 'dd-MMM-yyyy'}}</td>
+                                    <td>
+                                        <a routerLink="/project/defects_list/{{id}}/edit/{{data.en_id}}" class="btn btn-tbl-edit" >
+                                          <i class="material-icons">edit</i>
+                                        </a>
+                                        <!-- <a (click)="overview(data.en_id)" class="btn bg-blue btn-circle waves-effect waves-circle waves-float">
+                                            <i class="material-icons">list</i>
+                                        </a> -->
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div *ngIf="dataSource.length === 0">
+                          No Records Found!
+                      </div>
+                        <div class="dataTables_paginate paging_simple_numbers" *ngIf="count > 20" id="chieldRow_paginate">
+                            <pagination-controls
+
+                              previousLabel="Prev"
+                              nextLabel="Next"
+                              (pageChange)="onTableDataChange($event)">
+                            </pagination-controls>
+                          </div>
+                    </div>
+                </div>
+              </div>
+          </div>
+      </div>
+
+      <!-- <div class="row" *ngIf="type=='client'">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="card">
+                  <div class="body">
+                      <div class="table-responsive">
+                          <table class="table table-hover js-basic-example contact_list">
+                              <thead>
+                                  <tr>
+                                      <th class="center"> Project Name </th>
+                                      <th class="center"> Defect </th>
+                                      <th class="center"> Status </th>
+                                      <th class="center"> Date Time </th>
+                                      <th> Action </th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr class="odd gradeX" *ngFor="let data of dataSource | paginate : {
+                                      itemsPerPage: tableSize,
+                                      currentPage: page,
+                                      totalItems: count
+                                    };">
+                                      <td class="center">{{data.project_name}}</td>
+                                      <td class="center">{{data.title}}</td>
+                                       <td class="center">
+                                        <p *ngIf="data.defect_status == 'Open'">
+                                          <span class="border border-light text-light text-uppercase span-custom extra-custom-padding">
+                                            Open
+                                          </span>
+                                        </p>
+                                        <p *ngIf="data.defect_status == 'Ready'">
+                                          <span class="border border-success text-success text-uppercase span-custom extra-custom-padding-2">
+                                            Ready
+                                          </span>
+                                        </p>
+                                        <p *ngIf="data.defect_status == 'In Process'">
+                                          <span class="border border-info text-info text-uppercase span-custom">
+                                            In Process
+                                          </span>
+                                        </p>
+                                        <p *ngIf="data.defect_status == 'Testing'">
+                                          <span class="border border-warning text-warning text-uppercase span-custom extra-custom-padding-3">
+                                            Testing
+                                          </span>
+                                        </p>
+                                        <p *ngIf="data.defect_status == 'Re-Open'">
+                                          <span class="border border-warning text-warning text-uppercase span-custom extra-custom-padding-3">
+                                            Re-Open
+                                          </span>
+                                        </p>
+                                        <p *ngIf="data.defect_status == 'Done'">
+                                          <span class="border border-primary text-primary text-uppercase span-custom extra-custom-padding">
+                                            Done
+                                          </span>
+                                        </p>
+                                        <p *ngIf="data.defect_status == 'Completed'">
+                                          <span class="border border-danger text-danger text-uppercase span-custom">
+                                            Completed
+                                          </span>
+                                        </p>
+                                        <p *ngIf="data.defect_status == 'Closed'">
+                                          <span class="border border-danger text-danger text-uppercase span-custom extra-custom-padding-3">
+                                            Closed
+                                          </span>
+                                        </p>
+                                      </td>
+                                      <td class="center">{{data.created_at | date: 'dd-MMM-yyyy'}}</td>
+                                      <td>
+                                          <a routerLink="/project/defects_list/{{id}}/edit/{{data.en_id}}" class="btn btn-tbl-edit" >
+                                            <i class="material-icons">edit</i>
+                                          </a>
+                                      </td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                          <div *ngIf="dataSource.length === 0">
+                            No Records Found!
+                        </div>
+                          <div class="dataTables_paginate paging_simple_numbers" *ngIf="count > 20" id="chieldRow_paginate">
+                              <pagination-controls
+
+                                previousLabel="Prev"
+                                nextLabel="Next"
+                                (pageChange)="onTableDataChange($event)">
+                              </pagination-controls>
+                            </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div> -->
+  </div>
+</section>

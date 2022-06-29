@@ -2,13 +2,39 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Angular6Client</title>
+  <title>My Buddy</title>
   <base href="/">
-
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+  
+	<!-- theme Css -->
+	<link href="/assets/css/app.min.css" rel="stylesheet">
+	<link href="/assets/css/form.min.css" rel="stylesheet">
+	<!-- Custom Css -->
+	
+	<link href="/assets/css/pages/extra_pages.css" rel="stylesheet" />
+	<link href="/assets/css/style.css" rel="stylesheet" />
+	<link href="/assets/css/styles/all-themes.css" rel="stylesheet" />
+	
+	<link href="/assets/css/custom.css" rel="stylesheet" />
+
+	<!-- theme css-->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
-<body>
+<body class="dark mat-typography">
+	<div class="page-loader-wrapper ">
+        <div class="loader">
+            <div class="m-t-30">
+                <img class="loading-img-spin" src="assets/images/loading.png" alt="admin">
+            </div>
+            <p>Please wait...</p>
+        </div>
+    </div>
+	
+	 <div class="overlay"></div>
   <app-root></app-root>
 </body>
+<footer></footer>
 </html>

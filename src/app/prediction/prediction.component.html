@@ -1,0 +1,179 @@
+<p>prediction works!</p>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <ul class="breadcrumb breadcrumb-style ">
+                        <li class="breadcrumb-item">
+                            <h4 class="page-title">All Prediction</h4>
+                        </li>
+                        <li class="breadcrumb-item bcrumb-1">
+                            <a routerLink="/dashboard">
+                                <i class="fas fa-home"></i> Home</a>
+                        </li>
+                        <li class="breadcrumb-item bcrumb-2">
+                            <a href="#" onClick="return false;">Team Prediction</a>
+                        </li>
+                        <li class="breadcrumb-item active">Prediction</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            <strong>Team</strong> Predictions
+                        </h2>
+                    </div>
+                    <form [formGroup]="predictionForm" (ngSubmit)="onSubmit()">
+                      <div class="row pl-4 page-number-custom">
+                        <div class="col-sm-3 relative-21">
+                          <div class="dataTables_length datatable_allleaves" id="DataTables_Table_0_length">
+                            <label class="d-flex page-neighbours">
+                              <span class="m-r-7">Show</span>
+                              <select name="DataTables_Table_0_length" id="page_length" aria-controls="DataTables_Table_0"
+                                class="custom-select-sm form-control form-control-sm p-left-number" (change)="pageValue($event)">
+                                <option value="10">10</option>
+                                <option value="15">15</option>
+                                <option value="20">20</option>
+                              </select>
+                              <span class="ml-2">entries</span>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-sm-5">
+                        </div>
+                        <div class="col-sm-3 ">
+                          <div class="form-group">
+                            <div class="form-line">
+                              <input
+                              type="text"
+                              class="form-control"
+                              placeholder="Search"
+                              formControlName="search"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                          <div class="col-sm-1">
+                            <div class="form-group">
+                              <div class="form-line">
+                                <div class="d-flex justify-content-start">
+                                  <div><button title="Search" type="submit" class="btn btn-success waves-effect"><i class="fas fa-search"></i></button></div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          </div>
+                      </form>
+                    <div class="body">
+                        <div class="table-responsive">
+                            <table class="table table-hover js-basic-example contact_list" *ngIf="length > 0">
+                                <thead>
+                                    <tr>
+                                        <th class="center"> Employee name </th>
+                                        <th class="center"> Other Projects </th>
+                                        <th class="center"> Calidig-Internal </th>
+                                        <th class="center"> Action </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="odd gradeX" *ngFor="let data of prediction | paginate : {
+                                        itemsPerPage: tableSize,
+                                        currentPage: page,
+                                        totalItems: count
+                                      };">
+                                        <td class="center">{{data.name}}</td>
+                                        <td class="center" *ngIf="data.alloc == 0">Available</td>
+                                        <td class="center" *ngIf="data.alloc != 0"><div class="progress">
+                                            <div class="progress-bar" role="progressbar" [ngStyle]="{width: data.alloc + '%'}"  aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{data.alloc}}%</div>
+                                        </div></td>
+                                        <td class="center"><div class="progress">
+                                            <div class="progress-bar" role="progressbar" [ngStyle]="{width: data.availability + '%'}"  aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{data.availability}}%</div>
+                                        </div></td>
+                                        <td class="center">
+                                            <!-- <a routerLink="/employee/edit/{{data.id}}" class="btn btn-tbl-edit"  *ngIf="getPermission(1,2)">
+                                                <i class="material-icons">create</i>
+                                            </a>
+
+                                            <button class="btn btn-tbl-delete" (click)="deleteData(data.id)"  *ngIf="getPermission(1,3)">
+                                                <i class="material-icons">delete_forever</i>
+                                            </button> -->
+
+                                            <button class="btn bg-blue btn-tbl-edit" (click) = "show(data)">
+                                                <i class="material-icons">account_circle</i>
+                                            </button>
+
+
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div *ngIf="length === 0">
+                                No Records Found!
+                            </div>
+                            <div class="d-flex justify-content-right pagintion-right" *ngIf="count > 20">
+                                <pagination-controls
+
+                                  previousLabel="Prev"
+                                  nextLabel="Next">
+                                </pagination-controls>
+                              </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal c" id="exampleModalCenter" [style.display]="showModal ? 'block' : 'none'">
+            <div class="modal-dialog">
+              <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title" *ngIf="content != ''">Employee Info</h4>
+                  <button type="button" class="close" style="color:#fff" data-dismiss="modal" (click) = "hide()">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                  <table *ngIf="content != ''" class="table">
+
+                    <tr *ngIf="content.project.length > 0">
+                        <td> Project name</td>
+                        <td> {{content.project}}</td>
+                    </tr>
+                    <tr>
+                        <td> Progress </td>
+                        <td>
+                            <div *ngFor="let data of content.start_date">
+                                {{data.project_name}} ({{testfunction(data.start_date)}} to {{testfunction(data.end_date)}})
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" [ngStyle]="{width: data.allocation + '%'}"  aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{data.allocation}}%</div>
+                                </div>
+                            </div>
+                            Calidig-Internal <div class="progress">
+                            <div class="progress-bar" role="progressbar" [ngStyle]="{width: content.availability + '%'}"  aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{content.availability}}%</div>
+                          </div>
+                        </td>
+                    </tr>
+                  </table>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-danger" data-dismiss="modal" (click) = "hide()">Close</button>
+                </div>
+
+              </div>
+            </div>
+          </div>
+    </div>
+</section>

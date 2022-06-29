@@ -1,0 +1,108 @@
+<ngx-spinner></ngx-spinner>
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <ul class="breadcrumb breadcrumb-style ">
+                        <li class="breadcrumb-item">
+                            <h4 class="page-title">Holiday</h4>
+                        </li>
+                        <li class="breadcrumb-item bcrumb-1">
+                            <a href="../../index.html">
+                                <i class="fas fa-home"></i> Home</a>
+                        </li>
+                        <li class="breadcrumb-item bcrumb-2">
+                            <a href="#" onClick="return false;">Holiday</a>
+                        </li>
+                        <li class="breadcrumb-item active">Add Holiday</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            <strong>Add</strong> Holiday
+                        </h2>
+                    </div>
+                    <div class="body">
+                        <form [formGroup]="holidayForm" (ngSubmit)="onSubmit()">
+
+                        <div class="row clearfix">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="text" formControlName="title" class="form-control" placeholder="Title" autocomplete="off" />
+
+                                    </div>
+                                    <div *ngIf="isSubmitted && errorControl.title.errors?.required" class="error-msg">
+                                        <label class="error">Title is required</label>
+                                      </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="text" formControlName="description" class="form-control" placeholder="Description" autocomplete="off" />
+
+                                    </div>
+                                    <div *ngIf="isSubmitted && errorControl.description.errors?.required" class="error-msg">
+                                        <label class="error">Description is required</label>
+                                      </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row clearfix">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="form-line">
+
+                                        <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Select Date - End Date"
+                                        bsDaterangepicker
+                                        [bsConfig]="{ showWeekNumbers:false }"
+                                        formControlName="start"
+                                        autocomplete="off"
+                                        [datesDisabled]="disabledDates"
+                                        [minDate]="minDate"
+                                        />
+
+                                    </div>
+                                    <div *ngIf="isSubmitted && errorControl.start.errors?.required" class="error-msg">
+                                        <label class="error">Start date is required</label>
+                                      </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                              <div class="form-group">
+                                  <div class="form-line">
+                                      <select class="form-control col-12 m-t-10 p-l-0" formControlName="holiday_type" placeholder="Project type" >
+                                          <option value="">Holiday type</option>
+                                          <option value="National">National</option>
+                                          <option value="Casual">Casual</option>
+                                      </select>
+                                  </div>
+                                  <div *ngIf="isSubmitted && errorControl.holiday_type.errors?.required" class="error-msg">
+                                      <label class="error">Please select holiday type</label>
+                                    </div>
+                              </div>
+                          </div>
+                        </div>
+
+                        <div class="col-lg-12 p-t-20 text-center">
+                            <button type="submit" class="btn btn-primary waves-effect m-r-15">Submit</button>
+                            <button type="button" class="btn btn-danger waves-effect" (click)="reset()">Cancel</button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

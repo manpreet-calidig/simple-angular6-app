@@ -1,0 +1,381 @@
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <ul class="breadcrumb breadcrumb-style ">
+                        <li class="breadcrumb-item">
+                            <h4 class="page-title">All Projects</h4>
+                        </li>
+                        <li class="breadcrumb-item bcrumb-1">
+                            <a href="../../index.html">
+                                <i class="fas fa-home"></i> Home</a>
+                        </li>
+                        <li class="breadcrumb-item bcrumb-2">
+                            <a href="#" onClick="return false;">Project</a>
+                        </li>
+                        <li class="breadcrumb-item active">All Projects</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row" >
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            <strong>All</strong> Projects
+                        </h2>
+                    </div>
+                    <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+                        <div class="row pl-4">
+                        <div class="col-sm-4 ">
+                            <div class="dataTables_length" id="DataTables_Table_0_length">
+                                <label>
+                                   Show 
+                                   <select name="DataTables_Table_0_length" id="page_length" aria-controls="DataTables_Table_0" class="custom-select-sm form-control form-control-sm" (change)="pageValue($event)">
+                                        <option value="20">20</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                   </select>
+                                   entries
+                                </label>
+                             </div>
+                        </div>
+                        <div class="col-sm-4 ">
+                        </div>
+                        <div class="col-sm-3 ">
+                          <div class="form-group">
+                            <div class="form-line">
+                              <input
+                              type="text"
+                              class="form-control"
+                              placeholder="Search"
+                              formControlName="search"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                          <div class="col-sm-1">
+                            <div class="form-group">
+                              <div class="form-line">
+                                <div class="d-flex justify-content-start">
+                                  <div><button title="Search" type="submit" class="btn btn-success waves-effect"><i class="fas fa-search"></i></button></div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          </div>
+                      </form>
+                    <div class="body" *ngIf="type=='user'">
+                        <div class="table-responsive">
+                            <table class="table table-hover js-basic-example contact_list" *ngIf="length > 0">
+                                <thead>
+                                    <tr>
+                                        <th class="center"> Project Name </th>
+                                        <th class="center"> Client Name </th>
+                                        <th class="center"> Status </th>
+                                        <th class="center"> Team Size </th>
+                                        <th class="center"> Start Date </th>
+                                        <th class="center"> End Date </th>
+                                        <th class="center"> Action </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="odd gradeX" *ngFor="let data of dataSource | paginate : {
+                                        itemsPerPage: tableSize,
+                                        currentPage: page,
+                                        totalItems: count
+                                      };">
+                                        <td class="center">{{data.project_name}}</td>
+                                        <td class="center">{{data.client_name}}</td>
+                                        <td class="center">
+                                            <span *ngIf="data.status=='OG'">On Going</span>
+                                            <span *ngIf="data.status=='OH'">On Hold</span>
+                                            <span *ngIf="data.status=='C'">Closed</span>
+                                            <span *ngIf="data.status=='UC'">Upcoming</span>
+                                        </td>
+                                        <td class="teamsize">{{data.team_size}}</td>
+                                        <td class="center">{{data.start_date | date: 'dd-MMM-yyyy'}}</td>
+                                        <td class="center">{{data.end_date | date: 'dd-MMM-yyyy'}}</td>
+                                        <td class="center">
+                                            <a routerLink="edit/{{data.id}}" class="btn btn-tbl-edit" *ngIf="getPermission(5,2)">
+                                                <i class="material-icons">create</i>
+                                            </a>
+                                                <button class="btn btn-tbl-delete" (click)="deleteData(data.id)"  *ngIf="getPermission(5,3)">
+                                                <i class="material-icons">delete_forever</i>
+                                                </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div *ngIf="length === 0">
+                                No Records Found!
+                            </div>
+                            <div class="d-flex justify-content-center" *ngIf="count > 20">
+                                <pagination-controls
+
+                                  previousLabel="Prev"
+                                  nextLabel="Next"
+                                  (pageChange)="onTableDataChange($event)">
+                                </pagination-controls>
+                              </div>
+                        </div>
+                    </div>
+                    <div class="body" *ngIf="type=='employee'">
+                        <div class="table-responsive">
+                            <!-- <button class="btn btn-primary" routerLink="overview"> Task List </button> -->
+                            <table class="table table-hover js-basic-example contact_list" *ngIf="length > 0">
+                                <thead>
+                                    <tr>
+                                        <th class="center"> Project Name </th>
+                                        <th class="center"> Client Name </th>
+                                        <th class="center"> Status </th>
+                                        <th class="center"> Team Size </th>
+                                        <th class="center"> Start Date </th>
+                                        <th class="center"> End Date </th>
+                                        <th class="center"> Attachment </th>
+                                        <th class="center"> Action </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="odd gradeX" *ngFor="let data of employeeSource | paginate : {
+                                        itemsPerPage: tableSize,
+                                        currentPage: page,
+                                        totalItems: count
+                                      };">
+                                        <td class="center">{{data.project_name}}</td>
+                                        <td class="center">{{data.client_name}}</td>
+                                        <td class="center">
+                                            <span *ngIf="data.status=='OG'">On Going</span>
+                                            <span *ngIf="data.status=='OH'">On Hold</span>
+                                            <span *ngIf="data.status=='C'">Closed</span>
+                                            <span *ngIf="data.status=='UC'">Upcoming</span>
+                                        </td>
+                                        <td class="teamsize">{{data.team_size}}</td>
+                                        <td class="center">{{testfunction(data.start_date)}}</td>
+                                        <td class="center">{{testfunction(data.end_date)}} </td>
+                                        <td>
+                                            <span *ngFor="let document of data.upload_document  | keyvalue" style="margin-left: 5%;">
+                                                <a href="{{document.value}}" target="_blank"><i class="fa fa-paperclip" aria-hidden="true"></i></a>
+                                            </span>
+
+
+                                        </td>
+                                        <td class="center">
+                                            <a routerLink="edit/{{data.id}}" class="btn btn-tbl-edit" *ngIf="getPermission(5,2)">
+                                                <i class="material-icons">create</i>
+                                            </a>
+                                            <!-- <a routerLink="overview/{{data.id}}" class="btn bg-blue btn-circle waves-effect waves-circle waves-float">
+                                                <i class="material-icons">list</i>
+                                            </a> -->
+                                            <a (click)="overview(data.en_id)" class="btn bg-blue btn-circle waves-effect waves-circle waves-float">
+                                              <i class="material-icons">list</i>
+                                            </a>
+                                            <button class="btn btn-tbl-delete" (click)="deleteData(data.id)"  *ngIf="getPermission(5,3)">
+                                              <i class="material-icons">delete_forever</i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div *ngIf="length === 0">
+                                No Records Found!
+                            </div>
+                            <div class="dataTables_paginate paging_simple_numbers" *ngIf="count > 20" id="chieldRow_paginate">
+                                <pagination-controls
+
+                                  previousLabel="Prev"
+                                  nextLabel="Next"
+                                  (pageChange)="onTableDataChange($event)">
+                                </pagination-controls>
+                              </div>
+                        </div>
+                    </div>
+                    <div class="body" *ngIf="type=='client'">
+                        <div class="table-responsive">
+                            <table class="table table-hover js-basic-example contact_list" *ngIf="clientlength > 0">
+                                <thead>
+                                    <tr>
+                                        <th class="center"> Project Name </th>
+                                        <th class="center"> Client Name </th>
+                                        <th class="center"> Status </th>
+                                        <th class="center"> Team Size </th>
+                                        <th class="center"> Start Date </th>
+                                        <th class="center"> End Date </th>
+                                        <!-- <th>Action </th> -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="odd gradeX" *ngFor="let data of clientSource | paginate : {
+                                        itemsPerPage: tableSize,
+                                        currentPage: page,
+                                        totalItems: count
+                                      };">
+                                        <td class="center">{{data.project_name}}</td>
+                                        <td class="center">{{data.client_name}}</td>
+                                        <td class="center">
+                                            <span *ngIf="data.status=='OG'">On Going</span>
+                                            <span *ngIf="data.status=='OH'">On Hold</span>
+                                            <span *ngIf="data.status=='C'">Closed</span>
+                                            <span *ngIf="data.status=='UC'">Upcoming</span>
+                                        </td>
+                                        <td class="teamsize">{{data.team_size}}</td>
+                                        <td class="center">{{data.start_date}}</td>
+                                        <td class="center">{{data.end_date}}</td>
+                                        <td>
+                                          <!-- <a routerLink="overview/{{data.id}}" class="btn bg-blue btn-circle waves-effect waves-circle waves-float">
+                                                <i class="material-icons">list</i>
+                                            </a> -->
+                                            <!-- <a (click)="overview(data.en_id)" class="btn bg-blue btn-circle waves-effect waves-circle waves-float">
+                                                <i class="material-icons">list</i>
+                                            </a> -->
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div *ngIf="clientlength === 0">
+                                No Records Found!
+                            </div>
+                            <div class="dataTables_paginate paging_simple_numbers" *ngIf="count > 20" id="chieldRow_paginate">
+                                <pagination-controls
+
+                                  previousLabel="Prev"
+                                  nextLabel="Next"
+                                  (pageChange)="onTableDataChange($event)">
+                                </pagination-controls>
+                              </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="row" *ngIf="type=='employee'">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="card">
+                    <div class="body">
+                        <div class="table-responsive">
+                            <table class="table table-hover js-basic-example contact_list" *ngIf="length > 0">
+                                <thead>
+                                    <tr>
+                                        <th class="center"> Project Name </th>
+                                        <th class="center"> Client Name </th>
+                                        <th class="center"> Status </th>
+                                        <th class="center"> Team Size </th>
+                                        <th class="center"> Start Date </th>
+                                        <th class="center"> End Date </th>
+                                        <th class="center"> Attachment </th>
+                                        <th class="center"> Action </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="odd gradeX" *ngFor="let data of employeeSource | paginate : {
+                                        itemsPerPage: tableSize,
+                                        currentPage: page,
+                                        totalItems: count
+                                      };">
+                                        <td class="center">{{data.project_name}}</td>
+                                        <td class="center">{{data.client_name}}</td>
+                                        <td class="center">
+                                            <span *ngIf="data.status=='OG'">On Going</span>
+                                            <span *ngIf="data.status=='OH'">On Hold</span>
+                                            <span *ngIf="data.status=='C'">Closed</span>
+                                            <span *ngIf="data.status=='UC'">Upcoming</span>
+                                        </td>
+                                        <td class="teamsize">{{data.team_size}}</td>
+                                        <td class="center">{{testfunction(data.start_date)}}</td>
+                                        <td class="center">{{testfunction(data.end_date)}} </td>
+                                        <td>
+                                            <span *ngFor="let document of data.upload_document  | keyvalue" style="margin-left: 5%;">
+                                                <a href="{{document.value}}" target="_blank"><i class="fa fa-paperclip" aria-hidden="true"></i></a>
+                                            </span>
+
+
+                                        </td>
+                                        <td class="center">
+                                            <a routerLink="edit/{{data.id}}" class="btn btn-tbl-edit" *ngIf="getPermission(5,2)">
+                                                <i class="material-icons">create</i>
+                                            </a>
+                                            <a (click)="overview(data.en_id)" class="btn bg-blue btn-circle waves-effect waves-circle waves-float">
+                                              <i class="material-icons">list</i>
+                                            </a>
+                                            <button class="btn btn-tbl-delete" (click)="deleteData(data.id)"  *ngIf="getPermission(5,3)">
+                                              <i class="material-icons">delete_forever</i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div *ngIf="length === 0">
+                                No Records Found!
+                            </div>
+                            <div class="dataTables_paginate paging_simple_numbers" *ngIf="count > 20" id="chieldRow_paginate">
+                                <pagination-controls
+
+                                  previousLabel="Prev"
+                                  nextLabel="Next"
+                                  (pageChange)="onTableDataChange($event)">
+                                </pagination-controls>
+                              </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="type=='client'">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="card">
+                    <div class="body">
+                        <div class="table-responsive">
+                            <table class="table table-hover js-basic-example contact_list" *ngIf="clientlength > 0">
+                                <thead>
+                                    <tr>
+                                        <th class="center"> Project Name </th>
+                                        <th class="center"> Client Name </th>
+                                        <th class="center"> Status </th>
+                                        <th class="center"> Team Size </th>
+                                        <th class="center"> Start Date </th>
+                                        <th class="center"> End Date </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="odd gradeX" *ngFor="let data of clientSource | paginate : {
+                                        itemsPerPage: tableSize,
+                                        currentPage: page,
+                                        totalItems: count
+                                      };">
+                                        <td class="center">{{data.project_name}}</td>
+                                        <td class="center">{{data.client_name}}</td>
+                                        <td class="center">
+                                            <span *ngIf="data.status=='OG'">On Going</span>
+                                            <span *ngIf="data.status=='OH'">On Hold</span>
+                                            <span *ngIf="data.status=='C'">Closed</span>
+                                            <span *ngIf="data.status=='UC'">Upcoming</span>
+                                        </td>
+                                        <td class="teamsize">{{data.team_size}}</td>
+                                        <td class="center">{{data.start_date}}</td>
+                                        <td class="center">{{data.end_date}}</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div *ngIf="clientlength === 0">
+                                No Records Found!
+                            </div>
+                            <div class="dataTables_paginate paging_simple_numbers" *ngIf="count > 20" id="chieldRow_paginate">
+                                <pagination-controls
+
+                                  previousLabel="Prev"
+                                  nextLabel="Next"
+                                  (pageChange)="onTableDataChange($event)">
+                                </pagination-controls>
+                              </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    </div>
+</section>

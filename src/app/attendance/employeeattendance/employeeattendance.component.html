@@ -1,0 +1,258 @@
+<section class="content">
+  <div class="container-fluid">
+    <div class="block-header">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <ul class="breadcrumb breadcrumb-style ">
+            <li class="breadcrumb-item">
+              <h4 class="page-title"> Attendance</h4>
+            </li>
+            <li class="breadcrumb-item bcrumb-1">
+              <a href="../../index.html">
+                <i class="fas fa-home"></i> Home</a>
+            </li>
+            <li class="breadcrumb-item bcrumb-2">
+              <a href="#" onClick="return false;">Attendance</a>
+            </li>
+            <li class="breadcrumb-item active">Employee Attendance</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12" *ngIf="type=='user' || role=='1'">
+        <div class="card">
+          <div class="profile-tab-box">
+            <div class="p-l-20">
+              <ul class="nav ">
+                <li class="nav-item tab-all">
+                  <a class="nav-link active" (click)="showattend()" [ngClass]="{'active': active === true}" class="hand-on p-2" data-toggle="tab">Attendance</a>
+                </li>
+                <li class="nav-item tab-all p-l-20">
+                  <a class="nav-link" (click)="showrprt()" class="hand-on p-2" data-toggle="tab">Report</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="chat">
+            <div class="chat-header clearfix">
+              <img src="../../assets/images/user/user6.jpg" alt="" *ngIf="image ==''  || image == null">
+              <img src="{{url}}{{image}}" alt="" *ngIf="image !='' && image != null" style="height: 35px;">
+              <div class="row">
+                <div class="col-lg-3 col-sm-6">
+                  <div class="chat-about">
+                    <div class="text-yellow">Name</div>
+                    <div class="chat-num-messages">{{name}}</div>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                  <div class="chat-about">
+                    <div class="text-yellow">Employee ID</div>
+                    <div class="chat-num-messages">{{employee_id}}</div>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                  <div class="chat-about">
+                    <div class="text-yellow">Joining Date</div>
+                    <div class="chat-num-messages">{{join_date | date: 'dd-MMM-yyyy'}}</div>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                  <div class="chat-about">
+                    <div class="text-yellow">Stream</div>
+                    <div class="chat-num-messages">{{designation}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card" *ngIf="showAttendance">
+          <div class="header">
+            <h2>
+              <strong>My</strong> Attendance
+            </h2>
+          </div>
+          <form [formGroup]="attendanceForm" (ngSubmit)="onSubmit()">
+            <div class="row pl-4">
+              <div class="col-sm-3 relative-21">
+                <div id="DataTables_Table_0_length"
+                  class="dataTables_length datatable_allleaves"><label
+                    class="d-flex page-neighbours">
+                    <span class="m-r-7">Show</span>
+                    <select (change)="pageValue($event)"
+                     name="DataTables_Table_0_length" id="page_length"
+                      aria-controls="DataTables_Table_0"
+                      class="custom-select-sm form-control form-control-sm p-left-number">
+                      <option value="10">10</option>
+                      <option value="15">15</option>
+                      <option value="20">20</option>
+                    </select>
+                    <span class="ml-2">entries</span>
+                  </label>
+                </div>
+              </div>
+              <div class="col-sm-9 d-flex justify-content-end">
+                <div class="col-sm-3">
+                  <div class="form-group">
+                    <div class="form-line">
+                      <select class="form-control col-12 m-t-10 p-l-0" formControlName="month">
+                        <option value="" selected disabled>Select Month</option>
+                        <option *ngFor="let data of months" value="{{data.value}}">{{data.name}}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-group">
+                    <div class="form-line">
+                      <select class="form-control col-12 m-t-10 p-l-0" formControlName="status">
+                        <option value="" selected disabled>Select Status</option>
+                        <option value="">All</option>
+                        <option *ngFor="let data of status" value="{{data.value}}">{{data.name}}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <!-- <div class="col-sm-2 ">
+                  <div class="form-group">
+                    <div class="form-line">
+                      <input type="text" class="form-control" placeholder="Search Date" bsDatepicker
+                        formControlName="date" autocomplete="off" [bsConfig]="{ showWeekNumbers:false }" />
+                    </div>
+                  </div>
+                </div> -->
+                <div class="col-sm-1">
+                  <div class="form-group">
+                    <div class="form-line">
+                      <div class="d-flex justify-content-start">
+                        <div><button title="Search" type="submit" class="btn btn-success waves-effect"><i
+                              class="fas fa-search"></i></button></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+          <div class="body">
+            <div class="table-responsive">
+              <table class="table table-hover js-basic-example contact_list" *ngIf="length > 0">
+                <thead>
+                  <tr>
+                    <th class="center"> # </th>
+                    <th class="center"> Image </th>
+                    <th class="center"> Employee </th>
+                    <th class="center"> Date </th>
+                    <th class="center"> Status </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="odd gradeX" *ngFor="let i = index; let data of dataSource | paginate : {
+                                        itemsPerPage: tableSize,
+                                        currentPage: page,
+                                        totalItems: count
+                                      };">
+                    <td>{{i+1}}</td>
+                    <td class="table-img center">
+                      <img src="../../assets/images/user/user6.jpg" alt=""
+                        *ngIf="data.image ==''  || data.image == null">
+                      <img src="{{url}}{{data.image}}" alt="" *ngIf="data.image !='' && data.image != null"
+                        style="height: 35px;">
+                    </td>
+                    <td class="center">{{data.first_name}} {{data.last_name}}</td>
+                    <!--<td class="center">{{data.email}}</td>
+                    <td class="center">{{data.designation}}</td> -->
+                    <td class="center">{{data.date | date: 'dd-MMM-yyyy'}}</td>
+                    <td class="center">
+                      <span *ngIf="data.status == '0'">
+                        <button class="btn btn-outline-danger  btn-sm hand-off  bg-all">
+                          Absent
+                        </button>
+                      </span>
+                      <span *ngIf="data.status == '1'">
+                        <button class="btn btn-outline-danger  btn-sm hand-off  bg-all">
+                          Leave
+                        </button>
+                      </span>
+                      <span *ngIf="data.status == '2'">
+                        <button class="btn btn-outline-danger  btn-sm hand-off  bg-all">
+                          Half day leave
+                        </button>
+                      </span>
+                      <span *ngIf="data.status == '5'">
+                        <button class="btn btn-outline-success  btn-sm hand-off  bg-all">
+                          Present
+                        </button>
+                      </span>
+                      <span *ngIf="data.status == '4'">
+                        <button class="btn btn-outline-success  btn-sm hand-off  bg-all">
+                          Holiday
+                        </button>
+                      </span>
+                      <span *ngIf="data.status == '6'">
+                        <button class="btn btn-outline-warning  btn-sm hand-off  bg-all">
+                          Present
+                        </button>
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot *ngIf="length >= 10">
+                  <tr>
+                    <th class="center"> # </th>
+                    <th class="center"> Image </th>
+                    <th class="center"> Employee </th>
+                    <th class="center"> Date </th>
+                    <th class="center"> Status </th>
+                  </tr>
+                </tfoot>
+              </table>
+              <div class="d-flex justify-content-right pagintion-right" *ngIf="count > 10">
+                <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)">
+                </pagination-controls>
+              </div>
+              <div *ngIf="length === 0">
+                No Records Found!
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="showReport">
+        <div class="card">
+          <div class="header">
+            <h2>
+              <strong>Attendance</strong> Report
+              <select style="float: right;" name="DataTables_Table_0_length" id="page_length"
+                aria-controls="DataTables_Table_0" (change)="onChange($event)" class="custom-select-sm form-control form-control-sm">
+                <option *ngFor="let data of dates" value="{{data.value}}">{{data.value}}</option>
+                <!-- <option value="50">50</option>
+                                <option value="100">100</option> -->
+              </select>
+            </h2>
+          </div>
+          <div class="body">
+            <div class="row clearfix">
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="card">
+                  <div class="body">
+                    <div class="chart-wrapper">
+                      <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"
+                        [options]="pieChartOptions" [plugins]="pieChartPlugins" >
+                      </canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

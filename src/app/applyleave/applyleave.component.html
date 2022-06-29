@@ -1,0 +1,122 @@
+<ngx-spinner></ngx-spinner>
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <ul class="breadcrumb breadcrumb-style ">
+                        <li class="breadcrumb-item">
+                            <h4 class="page-title">Leave</h4>
+                        </li>
+                        <li class="breadcrumb-item bcrumb-1">
+                            <a href="../../index.html">
+                                <i class="fas fa-home"></i> Home</a>
+                        </li>
+                        <li class="breadcrumb-item bcrumb-2">
+                            <a href="#" >Leave</a>
+                        </li>
+                        <li class="breadcrumb-item active">Add leave</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            <strong>Add</strong> Leave
+                        </h2>
+                    </div>
+                    <div class="body">
+                        <form [formGroup]="leaveForm" (ngSubmit)="onSubmit()">
+                            <div class="row clearfix">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <select class="form-control col-12 m-t-10 p-l-0" formControlName="leave_type" placeholder="Leave type" >
+                                                <option value="">Leave Type</option>
+                                                <option *ngFor="let data of leaveSources" value="{{data.leave_type}}">{{data.leave_type}}</option>
+                                            </select>
+                                        </div>
+                                        <div *ngIf="isSubmitted && errorControl.leave_type.errors?.required" class="error-msg">
+                                            <label class="error">Please select leave type</label>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" formControlName="status" class="form-control" autocomplete="off" />
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" formControlName="title" class="form-control" placeholder="Title" autocomplete="off" />
+                                        </div>
+                                        <div *ngIf="isSubmitted && errorControl.title.errors?.required" class="error-msg">
+                                            <label class="error">Title is required</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="row clearfix">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="text" formControlName="description" class="form-control" placeholder="Description" autocomplete="off" />
+
+                                    </div>
+                                    <div *ngIf="isSubmitted && errorControl.description.errors?.required" class="error-msg">
+                                        <label class="error">Description is required</label>
+                                      </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row clearfix">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Select Date"
+                                        bsDaterangepicker
+                                        [bsConfig]="{ showWeekNumbers:false }"
+                                        [daysDisabled]="[6,0]"
+                                        [datesDisabled]="disabledDates"
+                                        ng-mode="start"
+                                        formControlName="start"
+                                        autocomplete="off"
+                                        (ngModelChange)="updateMyDate($event)"
+                                        [minDate]="minDate"
+                                        [maxDate]="maxDate" />
+                                    </div>
+                                    <div *ngIf="isSubmitted && errorControl.start.errors?.required" class="error-msg">
+                                        <label class="error">Start date is required</label>
+                                      </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6" *ngIf="day==0">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <select class="form-control col-12 m-t-10 p-l-0" formControlName="day" placeholder="streams" name="streams" >
+                                            <option value="">Select Half/Full day</option>
+                                            <option value="fullday">Full day</option>
+                                            <option value="halfday">Half day</option>
+                                        </select>
+                                    </div>
+                                    <div *ngIf="isSubmitted && errorControl.day.errors?.required" class="error-msg">
+                                        <label class="error">Day duration is required</label>
+                                      </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 p-t-20 text-center">
+                            <button type="submit" class="btn btn-primary waves-effect m-r-15">Submit</button>
+                            <button type="button" class="btn btn-danger waves-effect" (click)="reset()">Cancel</button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

@@ -1,0 +1,180 @@
+<section class="content">
+  <div class="container-fluid">
+    <div class="block-header">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <ul class="breadcrumb breadcrumb-style ">
+            <li class="breadcrumb-item">
+              <h4 class="page-title"> Attendance</h4>
+            </li>
+            <li class="breadcrumb-item bcrumb-1">
+              <a href="../../index.html">
+                <i class="fas fa-home"></i> Home</a>
+            </li>
+            <li class="breadcrumb-item bcrumb-2">
+              <a href="#" onClick="return false;">Attendance</a>
+            </li>
+            <li class="breadcrumb-item active">Attendance</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <h2>
+              <strong>Monthly</strong> Attendance
+            </h2>
+          </div>
+          <form [formGroup]="attendanceForm" (ngSubmit)="onSubmit()">
+            <div class="row pl-4">
+              <!-- <div class="col-sm-3 relative-21">
+                <div id="DataTables_Table_0_length" class="dataTables_length datatable_allleaves"><label
+                    class="d-flex page-neighbours">
+                    <span class="m-r-7">Show</span>
+                    <select (change)="pageValue($event)"
+                      name="DataTables_Table_0_length" id="page_length" aria-controls="DataTables_Table_0"
+                      class="custom-select-sm form-control form-control-sm p-left-number">
+                      <option value="10">10</option>
+                      <option value="15">15</option>
+                      <option value="20">20</option>
+                    </select>
+                    <span class="ml-2">entries</span>
+                  </label>
+                </div>
+              </div> -->
+              <div class="row col-12 d-flex justify-content-end mt-12">
+                <div class="col-sm-3">
+                  <div class="form-group">
+                      <div class="form-line">
+                          <select class="form-control col-12 m-t-10 p-l-0" value="{{currentyear}}" (change)="onChange($event)" placeholder="year">
+                              <option value="" selected>Select Year</option>
+                              <option *ngFor='let i of array' value="{{i}}">{{i}}</option>
+                          </select>
+                      </div>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-group">
+                    <div class="form-line">
+                        <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Search name"
+                        formControlName="search"
+                        />
+                      <!-- <select class="form-control col-12 m-t-10 p-l-0" formControlName="emp_id">
+                        <option value="" selected disabled>Select Employee</option>
+                        <option value="">All</option>
+                        <option *ngFor="let data of employeeDataSource" value="{{data.id}}">{{data.name}}</option>
+                      </select> -->
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-2 col-2">
+                  <div class="form-group">
+                    <div class="form-line">
+                      <select class="form-control col-12 m-t-10 p-l-0" formControlName="month">
+                        <option value="" selected disabled>Select Month</option>
+                        <option *ngFor="let data of months" value="{{data.value}}">{{data.name}}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-1">
+                  <div class="form-group">
+                    <div class="form-line">
+                      <div class="d-flex justify-content-start">
+                        <div><button title="Search" type="submit" class="btn btn-success waves-effect"><i
+                              class="fas fa-search"></i></button></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+          <div class="body">
+            <div class="table-responsive">
+              <table class="table table-hover js-basic-example contact_list" *ngIf="length > 0">
+                <thead>
+                  <tr>
+                    <th class="center" style="width: 150px"> # </th>
+                    <th class="center" style="width: 210px"> Image </th>
+                    <th class="center" style="width: 150px"> Employee Name</th>
+                    <th class="center text-center" style="width: 300px"> Monthy Attendance </th>
+                    <th class="center"> Salary Paid </th>
+                    <th class="center" *ngIf="!enableSubmit"> Action </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="odd gradeX" *ngFor="let i = index; let data of dataSource | paginate : {
+                                        itemsPerPage: tableSize,
+                                        currentPage: page,
+                                        totalItems: count
+                                      };">
+                    <td>{{i+1}}</td>
+                    <td class="table-img center">
+                      <img src="../../assets/images/user/user6.jpg" alt="" class="hand-on" (click)="singleEmployeeAttendance(data.id)"
+                        *ngIf="data.image ==''  || data.image == null">
+                      <img src="{{url}}{{data.image}}" alt="" class="hand-on" (click)="singleEmployeeAttendance(data.id)"
+                        *ngIf="data.image !='' && data.image != null" style="height: 35px;">
+                    </td>
+                    <td class="center">{{data.first_name}} {{data.last_name}}</td>
+                    <td *ngIf="data.percentageData.leave_approval_pending == 0" class="text-center">{{data.percentageData.attendancePercentage}}%</td>
+                    <td *ngIf="data.percentageData.leave_approval_pending > 0" class="text-center">Approve Leave First</td>
+                    <td>
+                      <div class="form-group">
+                        <div class="form-line">
+                          <select *ngIf="data.percentageData.salaryData == null" class="form-control" (change)="storeSalaryRecords($event, data?.percentageData?.salaryData)">
+                            <option value="open">Open</option>
+                            <option value="paid">Paid</option>
+                            <option value="on_hold">On hold</option>
+                          </select>
+                          <select *ngIf="data.percentageData.salaryData != null" class="form-control" (change)="storeSalaryRecords($event, data?.percentageData?.salaryData)" [(ngModel)]="data.percentageData.salaryData.status">
+                            <option value="open">Open</option>
+                            <option value="paid">Paid</option>
+                            <option value="on_hold">On hold</option>
+                          </select>
+                        </div>
+                      </div>
+                    </td>
+                    <td><div class="">
+                      <button type="submit" class="btn btn-sm btn-primary waves-effect" *ngIf="data.percentageData.salaryData != null" (click)="UpdateSalary(data.id)">Update</button>
+                    </div></td>
+                  </tr>
+                  <tr *ngIf="enableSubmit" [ngClass]="{ 'd-none' : total < totalEmployees }">
+                    <td colspan="6" class="text-center">
+                      <div class="text-center">
+                        <button type="submit" class="btn btn-primary waves-effect" (click)="addSalary()">Submit</button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+
+                <tfoot *ngIf="total >= 10">
+                  <tr>
+                    <th class="center"> # </th>
+                    <th class="center"> Image </th>
+                    <th class="center"> Employee Name </th>
+                    <th class="center text-center"> Monthy Attendance </th>
+                    <th class="center"> Salary Paid </th>
+                    <th class="center" *ngIf="!enableSubmit"> Action </th>
+                  </tr>
+                </tfoot>
+              </table>
+              <div *ngIf="length === 0">
+                No Records Found!
+              </div>
+              <div class="d-flex justify-content-right pagintion-right" *ngIf="count > 20">
+                <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)">
+                </pagination-controls>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

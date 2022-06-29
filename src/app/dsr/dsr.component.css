@@ -1,0 +1,20 @@
+textarea {
+    background: #fff;
+    height: 100%;
+}
+
+.mt-8-46 {
+  margin-top: 8.46px !important;
+}
+
+select.form-control.ng-untouched.ng-pristine.ng-valid {
+  margin-top: 8.46px !important;
+  border-color: white !important;
+  padding-bottom: 6px !important;
+}
+
+select.form-control.ng-valid.ng-dirty.ng-touched {
+  margin-top: 8.46px !important;
+  border-color: white !important;
+  padding-bottom: 6px !important;
+}

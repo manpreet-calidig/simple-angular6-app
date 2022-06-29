@@ -1,0 +1,136 @@
+<ngx-spinner></ngx-spinner>
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <ul class="breadcrumb breadcrumb-style ">
+                        <li class="breadcrumb-item">
+                            <h4 class="page-title">Daily Reports</h4>
+                        </li>
+                        <li class="breadcrumb-item bcrumb-1">
+                            <a href="../../index.html">
+                                <i class="fas fa-home"></i> Home</a>
+                        </li>
+                        <li class="breadcrumb-item bcrumb-2">
+                            <a routerLink="/dsr">Daily Reports</a>
+                        </li>
+                        <li class="breadcrumb-item active">Add Daily Reports</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            Add Daily Status Reports
+                        </h2>
+                    </div>
+                    <div class="body">
+                        <form [formGroup]="dsrForm" (ngSubmit)="onSubmit()">
+                        <div class="row clearfix">
+                            <div class="col-sm-5">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <select class="form-control col-12 m-t-10 p-l-0 mt-8-46" formControlName="project" placeholder="Project" >
+                                            <option value="">Project</option>
+                                            <option *ngFor="let data of projectSource" value="{{data.id}}">{{data.project_name}}</option>
+                                        </select>
+                                    </div>
+                                    <div *ngIf="isSubmitted && errorControl.project.errors?.required" class="error-msg">
+                                        <label class="error">Please select project</label>
+                                      </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-5">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <!-- <input type="text" formControlName="description" class="form-control" placeholder="Description" autocomplete="off" /> -->
+                                            <input
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="Date"
+                                            bsDatepicker
+                                            [maxDate]="today"
+                                            [minDate]="yesterday"
+                                            formControlName="start"
+                                            [datesDisabled]="disabledDates"
+                                            [bsConfig]="{ showWeekNumbers:false }"
+                                            [daysDisabled]="[6,0]"
+                                            autocomplete="off" />
+                                        <div *ngIf="isSubmitted && errorControl.start.errors?.required" class="error-msg">
+                                            <label class="error">Start date is required</label>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="col-sm-2">
+                              <button type="button" class="btn btn-primary mb-2 btn-block mt-1" (click)="addAddress()">Add Task</button>
+                          </div> -->
+                        </div>
+                        <div class="row clearfix">
+                            <div class="col-sm-12" formArrayName="items"
+                            *ngFor="let item of formArr.controls; let i = index;">
+                                <div class="row" [formGroupName]="i">
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            <label for="description">Task </label>
+                                            <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    placeholder=""
+                                                    formControlName="description"
+                                                    autocomplete="off"
+                                                     />
+                                            <div *ngIf="isSubmitted && errorControl.items.controls[i].get('description')?.errors?.required" class="error-msg">
+                                            <label class="error">Task is required</label>
+                                            </div>
+                                            <div *ngIf="descriptionMatches && index1+1 == i" class="error-msg">
+                                              <label class="error">Duplicate task.</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            <label for="description"> Time (hrs)</label>
+                                                    <input
+                                                    type="number"
+                                                    class="form-control"
+                                                    placeholder=""
+                                                    formControlName="hour"
+                                                    autocomplete="off"
+                                                    (keyup)="ValidHoursHandler($event)"
+                                                     />
+                                            <div *ngIf="isSubmitted && errorControl.items.controls[i].get('hour')?.errors?.required" class="error-msg">
+                                            <label class="error">Hour is required</label>
+                                            </div>
+                                            <div *ngIf="isSubmitted && timeRequired && index1 == i" class="error-msg">
+                                              <label class="error">0 hour is not allowed.</label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2 mt-2">
+                                        <button type="button" class="btn btn-danger btn-sm btn-block mt-4" [ngClass]="i == 0 ? 'disabled' : '' " (click)="removeAddress(i)">Remove</button>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-lg-12 p-t-20 text-center">
+                            <button type="submit" class="btn btn-primary waves-effect m-r-15">Submit</button>
+                            <button type="button" class="btn btn-primary waves-effect m-r-15" (click)="addAddress()">Add Task</button>
+                            <button type="button" class="btn btn-danger waves-effect" (click)="reset()">Cancel</button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

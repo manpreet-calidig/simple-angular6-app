@@ -1,0 +1,101 @@
+<ngx-spinner></ngx-spinner>
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <ul class="breadcrumb breadcrumb-style ">
+                        <li class="breadcrumb-item">
+                            <h4 class="page-title">Projects</h4>
+                        </li>
+                        <li class="breadcrumb-item bcrumb-1">
+                            <a href="../../index.html">
+                                <i class="fas fa-home"></i> Home</a>
+                        </li>
+                        <li class="breadcrumb-item bcrumb-2">
+                            <a href="#" onClick="return false;">Leaves</a>
+                        </li>
+                        <li class="breadcrumb-item active">Edit Leave Balance</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom: 15px !important;">
+            <button class="btn btn-warning btn-border-radius waves-effect float-left ml-4" routerLink="/leave_balance"> &#8592; Back </button>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            <strong>Edit</strong> Leave Balance
+                        </h2>
+                    </div>
+                    <div class="body">
+                        <form [formGroup]="leaveForm" (ngSubmit)="onUpdate()">
+                        <div class="row clearfix">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="form-line">                            
+                                        <select class="form-control col-12 m-t-10 p-l-0" formControlName="user_id" placeholder="user_id" (change)="onChange($event)" >
+                                            <option value="">Select Client</option>
+                                            <option *ngFor="let data of dataSource" value="{{data.id}}">{{data.first_name}} {{data.last_name}}</option>
+                                        </select>
+                                    </div>
+                                    <div *ngIf="isSubmitted && errorControl.user_id.errors?.required" class="error-msg">
+                                        <label class="error">User is required</label>
+                                      </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="hidden" formControlName="id" class="form-control" placeholder="id" autocomplete="off" readonly/>
+                                    </div>
+                                    <div *ngIf="isSubmitted && errorControl.id.errors?.required" class="error-msg">
+                                        <label class="error">id</label>
+                                      </div>
+                                      <div class="form-line">
+                                        <input formControlName="entitled" type="number" class="validate form-control"
+                                            placeholder="Entitled" autocomplete="off">
+                                    </div>
+                                    <div *ngIf="isSubmitted && errorControl.entitled.errors?.required" class="error-msg">
+                                        <label class="error">Entitled is required</label>
+                                      </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row clearfix">
+                            <!-- <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input formControlName="entitled" type="number" class="validate form-control"
+                                            placeholder="entitled" autocomplete="off">
+                                    </div>
+                                    <div *ngIf="isSubmitted && errorControl.entitled.errors?.required" class="error-msg">
+                                        <label class="error">entitled is required</label>
+                                      </div>
+                                </div>
+                            </div> -->
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="number" formControlName="carrired_forward" class="form-control" placeholder="Carrired Forward" autocomplete="off" />
+                                    </div>
+                                    <div *ngIf="isSubmitted && errorControl.carrired_forward.errors?.required" class="error-msg">
+                                        <label class="error">Carried forword is required</label>
+                                      </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 p-t-20 text-center">
+                            <button type="submit" class="btn btn-primary waves-effect m-r-15">Submit</button>
+                            <button type="button" class="btn btn-danger waves-effect" routerLink="/leave_balance">Cancel</button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

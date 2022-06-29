@@ -1,0 +1,41 @@
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <ul class="breadcrumb breadcrumb-style ">
+                        <li class="breadcrumb-item">
+                            <h4 class="page-title">Leave Guidelines</h4>
+                        </li>
+                        <li class="breadcrumb-item bcrumb-1">
+                            <a href="../../index.html">
+                                <i class="fas fa-home"></i> Home</a>
+                        </li>
+                        <li class="breadcrumb-item bcrumb-2">
+                            <a routerLink="/dsr">Leave Guidelines</a>
+                        </li>
+                        <li class="breadcrumb-item active">View Guidelines</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            <strong>Leave</strong> Guidelines
+                            <button type="button"*ngIf="type=='user' || role=='1'" style="float: right;" routerLink="/guidelines/edit/{{1}}" class="btn btn-outline-info btn-border-radius">Edit guidelines</button>
+                        </h2>
+                    </div>
+                    <div class="body">
+                        <span [innerHTML]="guidelines"></span>
+                        <div *ngIf="guidelines == undefined">
+                          No data found!
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

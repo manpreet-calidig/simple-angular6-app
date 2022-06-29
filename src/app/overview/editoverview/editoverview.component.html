@@ -1,0 +1,146 @@
+<ngx-spinner></ngx-spinner>
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <ul class="breadcrumb breadcrumb-style ">
+                        <li class="breadcrumb-item">
+                            <h4 class="page-title">Overviews</h4>
+                        </li>
+                        <li class="breadcrumb-item bcrumb-1">
+                            <a href="../../index.html">
+                                <i class="fas fa-home"></i> Home</a>
+                        </li>
+                        <li class="breadcrumb-item bcrumb-2">
+                            <a routerLink="/project/defects_list">Defects</a>
+                        </li>
+                        <li class="breadcrumb-item active">Edit Defect</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom: 15px !important;">
+            <!-- <button class="btn btn-warning btn-border-radius waves-effect float-left" style="margin-left: 2%;" routerLink="/project/defects_list/{{idd}}/view/{{id}}"> &#8592; Back </button> -->
+            <button
+              class="btn btn-warning btn-border-radius waves-effect float-left"
+              style="margin-left: 2%;"
+              routerLink="/project/defects_list"> &#8592; Back
+            </button>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="card">
+                    <div class="body">
+                        <form [formGroup]="overviewForm" (ngSubmit)="onUpdate()">
+                        <div class="row clearfix">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="text" readonly formControlName="title" class="form-control" placeholder="Title" autocomplete="off" />
+                                    </div>
+                                    <div *ngIf="isSubmitted && errorControl.title.errors?.required" class="error-msg">
+                                        <label class="error">Title is required</label>
+                                      </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="text" readonly formControlName="project" class="form-control" placeholder="project" autocomplete="off" />
+                                    </div>
+                                    <div *ngIf="isSubmitted && errorControl.project.errors?.required" class="error-msg">
+                                        <label class="error">Project is required</label>
+                                      </div>
+                                </div>
+                            </div>
+                            <!-- <div class="col-sm-4">
+                              <div class="form-group">
+                                  <div class="form-line">
+                                    <select readonly class="form-control col-12 m-t-10 p-l-0" formControlName="project" placeholder="Projects" >
+                                      <option value="" selected disabled>Select Project</option>
+                                      <option disabled *ngFor="let project of projectsList" value="{{project.id}}">{{project.project_name}}</option>
+                                    </select>
+                                  </div>
+                                  <div *ngIf="isSubmitted && errorControl.project.errors?.required" class="error-msg">
+                                      <label class="error">Please select project</label>
+                                    </div>
+                              </div>
+                          </div> -->
+                          <div class="col-sm-4">
+                              <div class="form-group">
+                                  <div class="form-line">
+                                      <select class="form-control col-12 m-t-10 p-l-0" formControlName="drag_drop_status" placeholder="" >
+                                          <option value="" selected disabled>Select Status</option>
+                                          <option *ngFor="let defectlist of defectlists" value="{{defectlist.id}}">{{defectlist.status}}</option>
+
+                                      </select>
+                                  </div>
+                                  <div *ngIf="isSubmitted && errorControl.drag_drop_status.errors?.required" class="error-msg">
+                                      <label class="error">Status is required</label>
+                                    </div>
+                              </div>
+                          </div>
+                            <!-- <div class="col-sm-3">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <select class="form-control col-12 m-t-10 p-l-0" formControlName="status" placeholder="Status" >
+                                            <option value="" selected disabled>Select Label</option>
+                                            <option value="N">New Task</option>
+                                            <option value="I">Issue</option>
+                                            <option value="B">Bug</option>
+                                            <option value="R">Reissue</option>
+                                            <option value="C">Complete</option>
+                                        </select>
+                                    </div>
+                                    <div *ngIf="isSubmitted && errorControl.status.errors?.required" class="error-msg">
+                                        <label class="error">Status is required</label>
+                                      </div>
+                                </div>
+                            </div> -->
+                        </div>
+                        <div class="row clearfix hide">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input  id="file" type="file" multiple class="form-control" (change)="onFileChange($event)">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 hide">
+                                <ul>
+                                    <li *ngFor="let uplodedfile of uplodedfiles | keyvalue ">
+                                        <a href="{{url}}{{uplodedfile.value}}" target="_blank" download>{{uplodedfile.value}}</a>
+                                        <button type="button" (click)="RemoveElementFromArray(uplodedfile.value)" class="btn btn-tbl-delete"><i class="material-icons">delete_forever</i></button></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row clearfix">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <label for="description">Description</label>
+                                        <div class="description-design" [innerHTML]="data.description"></div>
+                                        <!-- <ckeditor
+                                            #editor
+                                            [config]="ckeConfig"
+                                            formControlName="description">
+                                        </ckeditor>
+                                        <div *ngIf="isSubmitted && errorControl.description.errors?.required" class="error-msg">
+                                            <label class="error">Description is required</label>
+                                          </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 p-t-20 text-center">
+                            <button type="submit" class="btn btn-primary waves-effect m-r-15">Submit</button>
+                            <button type="button" class="btn btn-danger waves-effect" routerLink="/project/defects_list">Cancel</button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

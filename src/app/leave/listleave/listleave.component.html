@@ -1,0 +1,422 @@
+<ngx-spinner></ngx-spinner>
+<section class="content">
+  <div class="container-fluid">
+    <div class="block-header">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <ul class="breadcrumb breadcrumb-style ">
+            <li class="breadcrumb-item">
+              <h4 class="page-title">All Leaves</h4>
+            </li>
+            <li class="breadcrumb-item bcrumb-1">
+              <a href="/dashboard">
+                <i class="fas fa-home"></i> Home</a>
+            </li>
+            <li class="breadcrumb-item bcrumb-2">
+              <a href="#" onClick="return false;">Leave</a>
+            </li>
+            <li class="breadcrumb-item active">All Leaves</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="box" style="cursor: pointer;" (click)="getmonthrecord('all')">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <!-- <div class="col-lg-5 col-5"> -->
+              <!-- <span class="info-box-icon"><i class="material-icons">time_to_leave</i></span> -->
+              <!-- </div> -->
+              <div class="col-lg-12 col-12 text-center">
+                <div>
+                  <h2 class="col-green">
+                    <span class="">{{allleave}}</span>
+                  </h2>
+                  <p>All Leaves</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="box" style="cursor: pointer;" (click)="getmonthrecord('requested')">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <!-- <div class="col-lg-5 col-5"> -->
+              <!-- <span class="info-box-icon"><i class="material-icons">time_to_leave</i></span> -->
+              <!-- </div> -->
+              <div class="col-lg-12 col-12 text-center">
+                <div>
+                  <h2 class="col-green">
+                    <span class="">{{applyleave}}</span>
+                  </h2>
+                  <p>Leave - Requested</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="box" style="cursor: pointer;" (click)="getmonthrecord('week')">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <!-- <div class="col-lg-5 col-5"> -->
+              <!-- <span class="info-box-icon"><i class="material-icons">time_to_leave</i></span> -->
+              <!-- </div> -->
+              <div class="col-lg-12 col-12 text-center">
+                <div>
+                  <h2 class="col-green">
+                    <span class="">{{weakleave}}</span>
+                  </h2>
+                  <p>Leave - Current Week</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="box" style="cursor: pointer;" (click)="getmonthrecord('month')">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <!-- <div class="col-lg-5 col-5"> -->
+              <!-- <span class="info-box-icon"><i class="material-icons">time_to_leave</i></span> -->
+              <!-- </div> -->
+              <div class="col-lg-12 col-12 text-center">
+                <div>
+                  <h2 class="col-green">
+                    <span class="">{{monthleave}}</span>
+                  </h2>
+                  <p>Leave - Current Month</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="box" style="cursor: pointer;" (click)="getmonthrecord('today')">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <!-- <div class="col-lg-5 col-5"> -->
+              <!-- <span class="info-box-icon"><i class="material-icons">time_to_leave</i></span> -->
+              <!-- </div> -->
+              <div class="col-lg-12 col-12 text-center">
+                <div>
+                  <h2 class="col-green">
+                    <span class="">{{todayleavecount}}</span>
+                  </h2>
+                  <p>Today's Leaves</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <h2 [innerHTML]="menutitle">
+            </h2>
+          </div>
+          <form [formGroup]="leaveForm" (ngSubmit)="onSearch()">
+            <div class="row pl-4 page-number-custom">
+              <div class="col-sm-2 relative-11">
+                <div class="dataTables_length datatable_allleaves" id="DataTables_Table_0_length">
+                  <label class="d-flex page-neighbours">
+                    <span class="m-r-7">Show</span>
+                    <select name="DataTables_Table_0_length" id="page_length" aria-controls="DataTables_Table_0"
+                      class="custom-select-sm form-control form-control-sm p-left-number" (change)="pageValue($event)">
+                      <option value="10">10</option>
+                      <option value="15">15</option>
+                      <option value="20">20</option>
+                    </select>
+                    <span class="ml-2">entries</span>
+                  </label>
+                </div>
+              </div>
+              <div class="col-sm-3 page-neighbours">
+                <div class="form-group">
+                  <div class="form-line">
+                    <input type="text" class="form-control" placeholder="Leave From" bsDatepicker
+                      formControlName="start" autocomplete="off" [bsConfig]="{ showWeekNumbers:false }" />
+                  </div>
+                  <!-- <div *ngIf="isSubmitted && errorControl1.start.errors?.required" class="error-msg">
+                          <label class="error">Select start date</label>
+                        </div> -->
+                </div>
+              </div>
+              <div class="col-sm-3 page-neighbours">
+                <div class="form-group">
+                  <div class="form-line">
+                    <input type="text" class="form-control" placeholder="Leave To" bsDatepicker formControlName="end"
+                      autocomplete="off" [bsConfig]="{ showWeekNumbers:false }" />
+                  </div>
+                  <!-- <div *ngIf="isSubmitted && errorControl1.end.errors?.required" class="error-msg">
+                          <label class="error">Select end date</label>
+                        </div> -->
+                </div>
+              </div>
+              <div class="col-sm-3 page-neighbours">
+                <div class="form-group">
+                  <div class="form-line">
+                    <input type="text" class="form-control" placeholder="Search name, type and title"
+                      formControlName="search" />
+                  </div>
+                  <div *ngIf="isSubmitted && errorControl1.search.errors?.required" class="error-msg">
+                    <label class="error"></label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-1 page-neighbours">
+                <div class="form-group">
+                  <div class="form-line">
+                    <div class="d-flex justify-content-start">
+                      <div><button title="Search" type="submit" class="btn btn-success waves-effect"><i
+                            class="fas fa-search"></i></button></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+          <div class="body">
+            <div class="table-responsive">
+              <table class="table table-hover js-basic-example contact_list" *ngIf="length > 0">
+                <thead>
+                  <tr>
+                    <th class="center col-2"> Employee</th>
+                    <th class="center col-1"> Type</th>
+                    <th class="center col-2"> Leave From </th>
+                    <th class="center col-2"> Leave To </th>
+                    <th class="center col-1 text-center"> Days </th>
+                    <th class="center"> Status </th>
+                    <th class="center"> Action </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="odd gradeX" *ngFor="let data of dataSource | paginate : {
+                                      itemsPerPage: tableSize,
+                                      currentPage: page,
+                                      totalItems: count
+                                    };">
+                    <td class="center">{{data.first_name}} {{data.last_name}}</td>
+                    <!-- <td class="center col-3">{{data.title}}</td> -->
+                    <td class="center col-3">{{data.leave_type}}</td>
+                    <!--<td class="center" >{{ (data.description.length>15)? (data.description | slice:0:15)+'...':(data.description)}}</td>-->
+                    <td class="center col-2">{{testfunction(data.start_date)}}</td>
+                    <td class="center col-2">{{testfunction(data.end_date)}}</td>
+                    <td class="center text-center">{{data.leavecount}} </td>
+                    <!--<td class="center" >{{data.remaining}} </td>-->
+                    <td class="center">
+                      <span *ngIf="data.status == 'I'">
+                        <button class="btn btn-outline-warning btn-sm bg-all hand-on" (click)="show(data)">
+                          Pending
+                        </button>
+                      </span>
+                      <span *ngIf="data.status == 'C'">
+                        <button class="btn btn-outline-danger  btn-sm  bg-all hand-off">
+                          Rejected
+                        </button>
+                      </span>
+                      <span *ngIf="data.status == 'A'">
+                        <button class="btn btn-outline-success  btn-sm  bg-all hand-off">
+                          Approved
+                        </button>
+                      </span>
+                      <span *ngIf="data.status == 'AU'">
+                        <button class="btn btn-outline-success  btn-sm  bg-all hand-off">
+                          Unpaid
+                        </button>
+                      </span>
+                      <span *ngIf="data.status == 'CA'">
+                        <button class="btn btn-outline-danger  btn-sm  bg-all hand-off">
+                          Cancel
+                        </button>
+                      </span>
+                    </td>
+                    <td class="center col-3">
+                      <span *ngIf="data.status == 'I'">
+                        <a routerLink="edit/{{data.id}}" class="btn btn-tbl-edit" *ngIf="getPermission(4,2)">
+                          <i class="material-icons">create</i>
+                        </a>
+                      </span>
+                      <span *ngIf="data.status != 'A'">
+                        <button class="btn btn-tbl-delete" (click)="deleteData(data.id)" *ngIf="getPermission(4,3)">
+                          <i class="material-icons">delete_forever</i>
+                        </button>
+                      </span>
+
+
+                      <button class="btn bg-blue btn-tbl-edit" (click)="showLeaveInfo(data)">
+                        <i class="material-icons">account_circle</i>
+                      </button>
+                      <!-- <button class="btn btn-warning btn-tbl-edit" (click) = "show(data)">
+                                                  <i class="material-icons">mode_edit</i>
+                                              </button> -->
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot *ngIf="length >= 10">
+                  <tr>
+                    <th class="center col-2"> Employee</th>
+                    <th class="center col-1"> Type</th>
+                    <th class="center col-2"> Leave From </th>
+                    <th class="center col-2"> Leave To </th>
+                    <th class="center col-1 text-center"> Days </th>
+                    <th class="center"> Status </th>
+                    <th class="center"> Action </th>
+                  </tr>
+                </tfoot>
+              </table>
+              <div *ngIf="length === 0">
+                No Records Found!
+              </div>
+              <div class="d-flex justify-content-right pagintion-right" *ngIf="count > 20">
+                <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)">
+                </pagination-controls>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal c" id="exampleModalCenter" [style.display]="showModal ? 'block' : 'none'">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title" *ngIf="content != ''">Leave Status</h4>
+            <button type="button" class="close" data-dismiss="modal" (click)="hide()">&times;</button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+            <form [formGroup]="statusForm" (ngSubmit)="onSubmit()">
+              <label for="email_address1">Status</label>
+              <div class="form-group">
+                <div class="form-line">
+                  <select class="form-control col-12 m-t-10 p-l-0" formControlName="status" placeholder="Status">
+                    <option value="">Select Leave Status</option>
+                    <option value="A">Approve</option>
+                    <option value="C">Reject</option>
+                    <option value="AU">Approve with unpaid </option>
+                  </select>
+                </div>
+                <div *ngIf="isSubmitted && errorControl.status.errors?.required" class="error-msg">
+                  <label class="error">Status is required</label>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="">
+                  <textarea name="" id="" cols="30" rows="5" class="form-control col-12 p-1" formControlName="comment"
+                    placeholder="Add comments...">
+
+                              </textarea>
+                </div>
+                <div *ngIf="isSubmitted && errorControl.comment.errors?.required" class="error-msg">
+                  <label class="error">Comment is required</label>
+                </div>
+              </div>
+              <!-- Modal footer -->
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-info waves-effect">Save</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="hide()">Close</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="modal c" id="exampleModalCenter" [style.display]="LeaveModal ? 'block' : 'none'">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Leave Info </h4>
+            <button type="button" style="color:#fff" class="close" data-dismiss="modal"
+              (click)="hide()">&times;</button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body scrollale">
+
+            <table *ngIf="leaveinfo != ''" class="table">
+              <tr>
+                <td style="color:#f1d065">Name </td>
+                <td> {{leaveinfo.first_name}} {{leaveinfo.last_name}}</td>
+              </tr>
+
+              <tr>
+                <td style="color:#f1d065"> Title</td>
+                <td>{{leaveinfo.title}}</td>
+              </tr>
+              <tr>
+                <td style="color:#f1d065">Leave Type</td>
+                <td>{{leaveinfo.leave_type}}</td>
+              </tr>
+              <tr>
+                <td style="color:#f1d065"> Description </td>
+                <td> {{leaveinfo.description}} </td>
+              </tr>
+              <tr>
+                <td style="color:#f1d065"> Leave Status </td>
+                <td>
+
+                  <p *ngIf="leaveinfo.status == 'I'">
+                    <button class="btn btn-outline-warning btn-sm bg-all">
+                      Pending
+                    </button>
+                  </p>
+                  <p *ngIf="leaveinfo.status == 'C'">
+                    <button class="btn btn-outline-danger  btn-sm  bg-all">
+                      Rejected
+                    </button>
+                  </p>
+                  <p *ngIf="leaveinfo.status == 'A'">
+                    <button class="btn btn-outline-success  btn-sm  bg-all">
+                      Approved
+                    </button>
+                  </p>
+                  <p *ngIf="leaveinfo.status == 'CA'">
+                    <button class="btn btn-outline-danger  btn-sm  bg-all">
+                      Cancel
+                    </button>
+                  </p>
+                  <p *ngIf="leaveinfo.status == 'AU'">
+                    <button class="btn btn-outline-success  btn-sm  bg-all">
+                      Unpaid
+                    </button>
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td style="color:#f1d065"> Total Leave </td>
+                <td> {{leaveinfo.balance.entitled*1 + leaveinfo.balance.carrired_forward*1 }} </td>
+              </tr>
+              <tr>
+                <td style="color:#f1d065"> Used Leave </td>
+                <td> {{leaveinfo.usedleave}} </td>
+              </tr>
+            </table>
+          </div>
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="hide()">Close</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

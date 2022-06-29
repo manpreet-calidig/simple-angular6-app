@@ -1,0 +1,125 @@
+<ngx-spinner></ngx-spinner>
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <ul class="breadcrumb breadcrumb-style ">
+                        <li class="breadcrumb-item">
+                            <h4 class="page-title">Defectss</h4>
+                        </li>
+                        <li class="breadcrumb-item bcrumb-1">
+                            <a href="../../index.html">
+                                <i class="fas fa-home"></i> Home</a>
+                        </li>
+                        <li class="breadcrumb-item bcrumb-2">
+                            <a routerLink="/project/defects_list">Defects</a>
+                        </li>
+                        <li class="breadcrumb-item active">Add Defect</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom: 15px !important;">
+            <button class="btn btn-warning btn-border-radius waves-effect float-left ml-4" routerLink="/project/defects_list"> &#8592; Back </button>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="card">
+                    <div class="body">
+                        <form [formGroup]="overviewForm" (ngSubmit)="onSubmit()">
+                        <div class="row clearfix">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="text" formControlName="title" class="form-control" placeholder="Title" autocomplete="off" />
+                                    </div>
+                                    <div *ngIf="isSubmitted && errorControl.title.errors?.required" class="error-msg">
+                                        <label class="error">Title is required</label>
+                                      </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                              <div class="form-group">
+                                  <div class="form-line">
+                                      <select class="form-control col-12 m-t-10 p-l-0" formControlName="project_id" placeholder="Projects" >
+                                          <option value="" selected disabled>Select Project</option>
+                                          <option *ngFor="let project of projectsList" value="{{project.id}}">{{project.project_name}}</option>
+                                      </select>
+                                  </div>
+                                  <div *ngIf="isSubmitted && errorControl.project_id.errors?.required" class="error-msg">
+                                      <label class="error">Please select project</label>
+                                  </div>
+                              </div>
+                          </div>
+                            <!-- <div class="col-sm-3">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <select class="form-control col-12 m-t-10 p-l-0" formControlName="defect" placeholder="Status" >
+                                            <option value="" selected disabled>Select Status</option>
+                                            <option *ngFor="let defectlist of defectlists" value="{{defectlist.id}}">{{defectlist.status}}</option>
+
+                                        </select>
+                                    </div>
+                                    <div *ngIf="isSubmitted && errorControl.status.errors?.required" class="error-msg">
+                                        <label class="error">Please select Defect</label>
+                                      </div>
+                                </div>
+                            </div> -->
+                            <!-- <div class="col-sm-3">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <select class="form-control col-12 m-t-10 p-l-0" formControlName="status" placeholder="Status" >
+                                            <option value="" selected disabled>Select Label</option>
+                                            <option value="N">New Task</option>
+                                            <option value="I">Issue</option>
+                                            <option value="B">Bug</option>
+                                            <option value="R">Reissue</option>
+                                            <option value="C">Complete</option>
+
+                                        </select>
+                                    </div>
+                                    <div *ngIf="isSubmitted && errorControl.status.errors?.required" class="error-msg">
+                                        <label class="error">Please select label</label>
+                                      </div>
+                                </div>
+                            </div> -->
+                        </div>
+                        <div class="row clearfix hide">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input  id="file" type="file" multiple class="form-control" (change)="onFileChange($event)">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row clearfix">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <label for="description">Description</label>
+                                        <ckeditor
+                                            #editor
+                                            [config]="ckeConfig"
+                                            formControlName="description">
+                                        </ckeditor>
+                                        <div *ngIf="isSubmitted && errorControl.description.errors?.required" class="error-msg">
+                                            <label class="error">Description is required</label>
+                                          </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 p-t-20 text-center">
+                            <button type="submit" class="btn btn-primary waves-effect m-r-15">Submit</button>
+                            <!-- <button type="button" class="btn btn-danger waves-effect" (click)="reset()">Cancel</button> -->
+                            <button type="button" class="btn btn-danger waves-effect" routerLink="/project/defects_list">Cancel</button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

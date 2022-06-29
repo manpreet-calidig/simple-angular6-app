@@ -1,0 +1,75 @@
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <ul class="breadcrumb breadcrumb-style ">
+                        <li class="breadcrumb-item">
+                            <h4 class="page-title">All Leave Types</h4>
+                        </li>
+                        <li class="breadcrumb-item bcrumb-1">
+                            <a href="../../index.html">
+                                <i class="fas fa-home"></i> Home</a>
+                        </li>
+                        <li class="breadcrumb-item bcrumb-2">
+                            <a href="#" onClick="return false;">Leaves</a>
+                        </li>
+                        <li class="breadcrumb-item active">All Leave Types</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom: 15px !important;">
+            <button class="btn btn-warning btn-border-radius waves-effect float-left ml-4" routerLink="add"> Add Leave Type </button>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="card">
+                    <div class="body">
+                        <div class="table-responsive">
+                            <table class="table table-hover js-basic-example contact_list" *ngIf="length > 0">
+                                <thead>
+                                    <tr>
+                                        <th class="center"> Leave type </th>
+                                        <th class="center"> Action </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="odd gradeX" *ngFor="let data of leaveSource | paginate : {
+                                        itemsPerPage: tableSize,
+                                        currentPage: page,
+                                        totalItems: count
+                                      };">
+                                        <td class="center">{{data.leave_type}}</td>
+                                        <td class="center">
+                                            <a routerLink="edit/{{data.id}}" class="btn btn-tbl-edit" *ngIf="getPermission(4,2)" >
+                                                <i class="material-icons">create</i>
+                                            </a>
+                                                <button class="btn btn-tbl-delete" (click)="deleteData(data.id)" *ngIf="getPermission(4,3)" >
+                                                <i class="material-icons">delete_forever</i>
+                                                </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div *ngIf="length === 0">
+                                No Records Found!
+                            </div>
+                            <div class="d-flex justify-content-center" *ngIf="count > 20">
+                                <pagination-controls 
+                                   
+                                  previousLabel="Prev" 
+                                  nextLabel="Next" 
+                                  (pageChange)="onTableDataChange($event)">
+                                </pagination-controls>
+                              </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+
+       
+    </div>
+</section>

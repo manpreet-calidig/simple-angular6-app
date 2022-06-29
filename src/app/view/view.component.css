@@ -1,0 +1,52 @@
+button.btn.btn-warning.btn-border-radius.waves-effect.float-right {
+    margin-bottom: 10px;
+}
+
+.left-timeline>li .left-time {
+    position: absolute;
+    right: 0;
+    margin-right: 11px;
+    width: 100%;
+    display: unset;
+    padding-right: 0;
+}
+
+.left-timeline:before { 
+    left: 2%;
+}
+
+.left-timeline>li .left-icon { 
+    left: 2%;
+}
+
+.left-timeline>li .left-label {
+    margin: 0 0 15px 6%;
+}
+
+.header-content {
+    border: 2px solid;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+.heading-title {
+    background: #4d555c;
+    padding: 10px 10px;
+    color: #f1d065;
+    font-size: 16px;
+}
+.user-info {
+    margin: 15px 10px;
+    color: #fff;
+    font-size: 14px;
+}
+.content-description {
+    margin: 3px 10px;
+}
+textarea {
+    color: #fff;
+}
+.btn.btn-tbl-edit {
+    right: 3%;
+    position: absolute;
+    margin: -6px 0;
+}

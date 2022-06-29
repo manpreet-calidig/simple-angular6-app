@@ -1,0 +1,170 @@
+<ngx-spinner></ngx-spinner>
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <ul class="breadcrumb breadcrumb-style ">
+                        <li class="breadcrumb-item">
+                            <h4 class="page-title">Daily Reports</h4>
+                        </li>
+                        <li class="breadcrumb-item bcrumb-1">
+                            <a href="../../index.html">
+                                <i class="fas fa-home"></i> Home</a>
+                        </li>
+                        <li class="breadcrumb-item bcrumb-2">
+                            <a routerLink="/dsr">Daily Reports</a>
+                        </li>
+                        <li class="breadcrumb-item active">Edit Daily Report</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom: 15px !important;">
+            <button class="btn btn-warning btn-border-radius waves-effect float-left ml-4" routerLink="/dsr"> &#8592; Back </button>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            Edit Daily Status Reports
+                        </h2>
+                    </div>
+                    <div class="body">
+                        <form [formGroup]="dsrForm" (ngSubmit)="onUpdate()">
+
+                        <div class="row clearfix">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <!-- <input type="text" formControlName="description" class="form-control" placeholder="Description" autocomplete="off" /> -->
+
+                                            <input
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="Employee Name"
+                                            formControlName="emp_name"
+                                            readonly
+                                            autocomplete="off" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <select class="form-control col-12 m-t-10 p-l-0" formControlName="project" placeholder="Project" >
+                                            <option value="" disabled>Project</option>
+                                            <option *ngFor="let data of projectSource" value="{{data.id}}">{{data.project_name}}</option>
+                                        </select>
+                                    </div>
+                                    <div *ngIf="isSubmitted && errorControl.project.errors?.required" class="error-msg">
+                                        <label class="error">Project is required</label>
+                                      </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <div class="form-line">
+
+                                        <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Date"
+                                        bsDatepicker
+                                        [maxDate]="today"
+                                        [minDate]="yesterday"
+                                        formControlName="start"
+                                        [datesDisabled]="disabledDates"
+                                        [daysDisabled]="[6,0]"
+                                        [bsConfig]="{ showWeekNumbers:false }"
+                                        autocomplete="off" />
+
+                                    </div>
+                                    <div *ngIf="isSubmitted && errorControl.start.errors?.required" class="error-msg">
+                                        <label class="error">Start date is required</label>
+                                      </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row clearfix">
+
+                            <div class="col-sm-12" formArrayName="items"
+                            *ngFor="let item of formArr.controls; let i = index;">
+                                <div class="row" [formGroupName]="i">
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            <label for="description">Task </label>
+
+                                            <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    placeholder="Task"
+                                                    formControlName="description"
+                                                    autocomplete="off"
+                                                     />
+                                                <div *ngIf="isSubmitted && errorControl.items.controls[i].get('description')?.errors?.required" class="error-msg">
+                                                <label class="error">Description is required</label>
+                                                </div>
+                                                <div *ngIf="descriptionMatches && index1+1 == i" class="error-msg">
+                                                  <label class="error">Duplicate task.</label>
+                                                </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            <label for="hour">Estimate Time</label>
+                                                    <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    placeholder="Hour"
+                                                    formControlName="hour"
+                                                    autocomplete="off"
+                                                     />
+
+                                                <div *ngIf="isSubmitted && errorControl.items.controls[i].get('hour')?.errors?.required" class="error-msg">
+                                                  <label class="error">Hour is required</label>
+                                                </div>
+                                                <div *ngIf="timeRequired && index1 == i" class="error-msg">
+                                                  <label class="error">0 hour is not allowed.</label>
+                                                </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <button type="button" class="btn btn-danger btn-sm" [ngClass]="i == 0 ? 'disabled' : '' " (click)="removeAddress(i)">Remove</button>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="row clearfix">
+                            <!-- <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <select class="form-control col-12 m-t-10 p-l-0" formControlName="holiday_type" placeholder="Project type" >
+                                            <option value="">Holiday type</option>
+                                            <option value="nationl">National</option>
+                                            <option value="casual">Casual</option>
+                                        </select>
+                                    </div>
+                                    <div *ngIf="isSubmitted && errorControl.holiday_type.errors?.required" class="error-msg">
+                                        <label class="error">Holiday Type is required</label>
+                                      </div>
+                                </div>
+                            </div> -->
+                        </div>
+
+                        <div class="col-lg-12 p-t-20 text-center">
+                            <button type="submit" class="btn btn-primary waves-effect m-r-15">Submit</button>
+                            <button type="button" class="btn btn-primary waves-effect m-r-15" (click)="addAddress()">Add Task</button>
+                            <button type="button" class="btn btn-danger waves-effect" routerLink="/dsr">Cancel</button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

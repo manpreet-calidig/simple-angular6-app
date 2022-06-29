@@ -1,0 +1,6 @@
+.form-check, label{
+    margin-left: 15px;
+}
+.visibility{
+    visibility: hidden;
+}

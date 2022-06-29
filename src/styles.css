@@ -1,14 +1,4 @@
-@import "~bootstrap/dist/css/bootstrap.css";
-@import "~font-awesome/css/font-awesome.css";
-
-.centeralign {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-
-}
-
-.addmargin {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
+/* You can add global styles to this file, and also import other style files */
+@import "~@ng-select/ng-select/themes/ant.design.theme.css";
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

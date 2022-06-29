@@ -1,0 +1,96 @@
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <ul class="breadcrumb breadcrumb-style ">
+                        <li class="breadcrumb-item">
+                            <h4 class="page-title">All Notification</h4>
+                        </li>
+                        <li class="breadcrumb-item bcrumb-1">
+                            <a href="../../index.html">
+                                <i class="fas fa-home"></i> Home</a>
+                        </li>
+                        <li class="breadcrumb-item bcrumb-2">
+                            <a href="#" onClick="return false;">Notification</a>
+                        </li>
+                        <li class="breadcrumb-item active">All Notification</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-between">
+            <!-- <div class="col-lg-12 col-md-12 col-sm-12"> -->
+             
+
+                    <div class="table-responsive">
+                        <table class="table table-hover js-basic-example contact_list">
+                            <tr *ngFor="let data of notiSource">
+                                <td>
+                                    <div class="nofication">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <h5 class="card-title" [innerHTML]="data.title" style="line-height: 30px;"></h5>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p class="card-text" [innerHTML]="data.description" style="text-transform: capitalize;"></p>
+
+                                            <span class="mt-auto" *ngIf="data.type == 'P'">
+                                                <p class="card-text"><small class="text-muted">{{data.updated_at | date: 'dd-MMM-yyyy'}} (Project Notification)</small></p>
+                                              </span>
+                                              <span class="mt-auto" *ngIf="data.type == 'L'">
+                                                <p class="card-text"><small class="text-muted">{{data.updated_at | date: 'dd-MMM-yyyy'}} (Leave Notification)</small></p>
+                                              </span>
+                                              <span class="mt-auto" *ngIf="data.type == 'H'">
+                                                <p class="card-text"><small class="text-muted">{{data.updated_at | date: 'dd-MMM-yyyy'}}  (Holiday Notification)</small></p>
+                                              </span>
+                                            </div>
+                                            <div class="col-md-2" *ngIf="type=='user'">
+                                                <button class="btn btn-tbl-delete" (click)="deleteData(data.id)">
+                                                    <i class="material-icons">delete_forever</i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        
+                                            
+                                    </div>
+                                </td>
+                            </tr>
+                            </table>
+
+                    </div>
+                 
+              
+              <!-- ----- -->
+                <!-- <div class="card">
+                    <div class="body">
+                        <div class="table-responsive">
+                            <table class="table table-hover js-basic-example contact_list">
+                                <thead>
+                                    <tr>
+                                        <th class="center"> Title </th>
+                                        <th class="center"> Description </th>
+                                        <th class="center"> Date </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="odd gradeX" *ngFor="let data of notiSource">
+                                        <td class="center"><div [innerHTML]="data.title"></div></td>
+                                        <td class="center"><div [innerHTML]="data.description"></div></td>
+                                        <td class="center" > {{data.datetime}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div *ngIf="notiSource.length === 0">
+                                No Records Found!
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+            <!-- </div> -->
+        </div>
+
+
+
+    </div>
+</section>
