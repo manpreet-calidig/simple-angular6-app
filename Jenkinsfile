@@ -19,7 +19,7 @@ node(){
     }
 
     stage('Package Build') {
-        sh "tar -zcvf bundle.tar.gz dist/angular6-client"
+        sh "tar -zcvf bundle.tar.gz dist/angular6-client/"
     }
 
     stage('Artifacts Creation') {
